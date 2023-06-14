@@ -1,7 +1,14 @@
 <?php
 
-use miniPress\api\actions\GetCategoriesApi;
+use miniPress\api\actions\GetArticlesAction;
+use miniPress\api\actions\GetCategoriesAction;
 
-return function (\Slim\App $app) {
-    $app->get('/api/categories', GetCategoriesApi::class);
+require_once __DIR__ . '/../vendor/autoload.php';
+
+return function (\Slim\App $app): void {
+
+    $app->get('/api/categories', GetCategoriesAction::class);
+
+    $app->get('/api/articles', GetArticlesAction::class);
+
 };

@@ -1,6 +1,8 @@
 <?php
 
-namespace miniPress\admin\models;
+namespace miniPress\api\models;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Categorie extends \Illuminate\Database\Eloquent\Model
 {
@@ -8,7 +10,8 @@ class Categorie extends \Illuminate\Database\Eloquent\Model
     protected $primaryKey = 'id';
     public $timestamps = false;
 
-    public function articles(){
+    public function articles() : HasMany
+    {
         return $this->hasMany(Article::class, 'cat_id');
     }
 
