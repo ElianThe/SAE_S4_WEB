@@ -1,7 +1,7 @@
 driver=mysql
 username=
 password=
-host=
+host=sql.db
 database=miniPress
 charset=utf8
 collation=utf8_unicode_ci
