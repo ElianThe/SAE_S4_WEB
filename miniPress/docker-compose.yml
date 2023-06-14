@@ -1,0 +1,64 @@
+version: "3"
+
+networks:
+  miniPress.net:
+    driver: bridge
+
+services:
+  sql:
+    image: mariadb:latest
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MARIADB_USER=${MYSQL_USER}
+      - MARIADB_PASSWORD=${MYSQL_PASSWORD}
+      - MARIADB_DATABASE=${MYSQL_DATABASE}
+    ports:
+      - "8081:3306"
+    networks:
+      miniPress.net:
+        aliases:
+          - sql.db
+
+  adminer :
+    image: adminer
+    ports:
+      - "1010:8080"
+    networks:
+      - miniPress.net
+    depends_on:
+      - sql
+
+  core-admin:
+    image: canals/php:latest
+    ports:
+      - "5480:80"
+    volumes:
+      - ./core/public:/var/www/html
+      - ./core/src:/var/www/src
+    working_dir: /var/www/src
+    networks:
+      - miniPress.net
+    depends_on:
+      - sql
+
+  core-api :
+    image: canals/php:latest
+    ports:
+      - "5380:80"
+    volumes:
+      - ./miniPress/public:/var/www/html
+      - ./miniPress/src:/var/www/src
+    working_dir: /var/www/src
+    networks:
+      - miniPress.net
+    depends_on:
+      - sql
+
+  httpd:
+    image: nginx:latest
+    volumes:
+      - ./html:/usr/share/nginx/html
+    ports:
+      - "5080:80"
+    networks:
+      - miniPress.net
