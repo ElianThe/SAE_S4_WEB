@@ -2,16 +2,18 @@
 
 namespace miniPress\api\actions;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface as Response;
 
-class GetCategoriesApi
+class GetCategoriesApi extends Action
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args) {
+
+    public function __invoke(Request $rq, Response $rs, array $args): Response
+    {
         $data = ['type' => 'ressource',
             'count' => 2,
             'categorie' => 'bla'];
-        $response->getBody()->write(json_encode('coucou'));
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        $rs->getBody()->write(json_encode($data));
+        return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }
