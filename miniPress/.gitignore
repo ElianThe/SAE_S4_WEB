@@ -1,0 +1,7 @@
+miniPress/app/vendor
+miniPress/app/conf/gift.db.conf.ini.dist
+*.lock
+*.xml
+*.ini
+*.dist
+.env
