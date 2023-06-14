@@ -8,7 +8,7 @@ class ArticlesService
 {
     public function getArticles(): array
     {
-        $articles = Article::all();
+        $articles = Article::with('user')->get();
         return $articles->toArray();
     }
 }

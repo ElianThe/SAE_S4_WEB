@@ -16,8 +16,16 @@ class GetArticlesAction extends Action
         $data = [
             'type' => 'collection',
             'count' => count($articles),
-            'categories' => $articles
+            'articles' => []
         ];
+
+        foreach ($articles as $article) {
+            $data['articles'][] = [
+                'titre' => $article->title,
+                'date_creation' => $article->created_at,
+                'auteur' => $article->user->email
+            ];
+        }
 
         $rs->getBody()->write(json_encode($data));
 
