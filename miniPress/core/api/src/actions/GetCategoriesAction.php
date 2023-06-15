@@ -10,8 +10,7 @@ class GetCategoriesAction extends Action
 {
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $categoriesService = new CategoriesService();
-        $categories = $categoriesService->getCategories();
+        $categories = CategoriesService::getCategories();
 
         $data = [
             'type' => 'collection',

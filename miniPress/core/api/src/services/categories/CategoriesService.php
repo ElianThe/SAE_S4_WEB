@@ -6,9 +6,20 @@ use miniPress\api\models\Categorie;
 
 class CategoriesService
 {
-    public function getCategories(): array
+    public static function getCategories(): array
     {
-        $categories = Categorie::all();
-        return $categories->toArray();
+        return Categorie::all()->toArray();
+    }
+
+    public static function getCategorieById($id): array
+    {
+        $cat = Categorie::find($id);
+        if($cat){
+            $result = $cat->toArray();
+            $result["articles"] = $cat->articles->toArray() ;
+            return $result;
+        } else {
+            return [];
+        }
     }
 }
