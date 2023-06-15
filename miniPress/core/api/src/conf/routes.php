@@ -1,6 +1,8 @@
 <?php
 
+use miniPress\api\actions\GetArticleById;
 use miniPress\api\actions\GetArticlesAction;
+use miniPress\api\actions\GetArticlesByAuteur;
 use miniPress\api\actions\GetCategorieArticlesActions;
 use miniPress\api\actions\GetCategoriesAction;
 use Slim\Routing\RouteCollectorProxy;
@@ -18,5 +20,7 @@ return function (\Slim\App $app): void {
             $articles->get('', GetArticlesAction::class);
             $articles->get('/{id}', GetArticleById::class);
         });
+
+        $api->get('/auteurs/{id}/articles', GetArticlesByAuteur::class);
     });
 };
