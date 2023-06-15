@@ -1,0 +1,25 @@
+{% extends "miniPress.skeleton.twig" %}
+
+{% block title %}Création d'une catégorie{% endblock %}
+
+{% block minipress %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <form method="POST" action="{{ createdArticle }}" class="my-4">
+                    <h2 class="mt-4 mb-4">Création d'une catégorie</h2>
+
+                    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ token }}">
+
+                    <div class="form-group">
+                        <label for="title">Nom de la catégorie</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mt-3">Créer</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

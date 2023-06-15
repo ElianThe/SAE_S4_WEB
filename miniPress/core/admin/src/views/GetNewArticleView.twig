@@ -6,8 +6,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h1 class="mt-4 mb-4">Création d'un article</h1>
-                <form action="/submit-article" method="POST">
+                <form method="POST" action="{{ createdArticle }}" class="my-4">
+                    <h2 class="mt-4 mb-4">Création d'un article</h2>
+
+                    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ token }}">
+
                     <div class="form-group">
                         <label for="title">Titre</label>
                         <input type="text" class="form-control" id="title" name="title" required>
@@ -20,7 +23,19 @@
                         <label for="content">Contenu</label>
                         <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
                     </div>
+
+                    <div class="form-group">
+                        <label for="category">Catégorie</label>
+                        <select class="form-control" id="category" name="category" required>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+
                     <button type="submit" class="btn btn-primary mt-3">Publier</button>
+
                 </form>
             </div>
         </div>
