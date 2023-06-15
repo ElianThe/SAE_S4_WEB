@@ -22,4 +22,13 @@ class ArticlesService
         }
         return $articles->toArray();
     }
+
+    public static function getArticleByAuteur($userId): array {
+        try {
+            $article = Article::where('user_id', $userId)->get();
+        } catch (ModelNotFoundException $exception) {
+            throw new ArticlesNotFoundException("l'id du user n'est pas trouvé");
+        }
+        return $article->toArray();
+    }
 }
