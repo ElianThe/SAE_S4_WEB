@@ -1,10 +1,9 @@
 <?php
 
-namespace miniPress\admin\action;
+namespace miniPress\admin\actions;
 
-use miniPress\admin\actions\Action;
-use miniPress\core\admin\src\services\UserNotFoundException;
-use miniPress\core\admin\src\services\UserService;
+use miniPress\admin\services\user\UserNotFoundException;
+use miniPress\admin\services\user\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
@@ -18,17 +17,32 @@ class AddUserPostAction extends Action
 
         $boxService = new UserService();
 
-        if ($boxService->checkPassword($params['password'])){
-            if (!$boxService->existFromDatabase($params['email'])){
-                $boxService->register($params);
+        if ($params['password'] == $params['confirm_password']) {
+            if ($boxService->checkPassword($params['password'])) {
+                if (!$boxService->existFromDatabase($params['email'])) {
+                    $boxService->register($params);
+                } else {
+                    $view = Twig::fromRequest($rq);
+                    return $view->render($rs, 'AddUserView.twig',[
+                        'error' => 'L\'adresse email est déjà utilisée'
+                    ]);
+                }
             } else {
-                throw new UserNotFoundException('Utilisateur déjà existant', 404);
+                $view = Twig::fromRequest($rq);
+                return $view->render($rs, 'AddUserView.twig',[
+                    'error' => 'Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial'
+                ]);
             }
         } else {
-            throw new UserNotFoundException('Mot de passe invalide', 404);
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'AddUserView.twig', [
+                'error' => 'Les mots de passe ne sont pas identiques'
+            ]);
         }
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'connexion.twig');
+        return $view->render($rs, 'AddUserView.twig',[
+            'success' => 'L\'utilisateur a bien été ajouté'
+        ]);
     }
 }

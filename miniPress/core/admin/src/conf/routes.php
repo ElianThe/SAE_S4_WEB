@@ -1,5 +1,9 @@
 <?php
 
+use miniPress\admin\actions\AddUserAction;
+use miniPress\admin\actions\AddUserPostAction;
+use miniPress\admin\action\GetNewArticleAction;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 return function (\Slim\App $app): void {
@@ -10,5 +14,11 @@ return function (\Slim\App $app): void {
 
     //route get
     $app->get('/article/new[/]', GetNewArticleAction::class)->setName('admin');
+    $app->get('/register[/]', AddUserAction::class)->setName('register');
+
+    //route post
+    $app->post('/register[/]', AddUserPostAction::class)->setName('registerPost');
+
+
 
 };
