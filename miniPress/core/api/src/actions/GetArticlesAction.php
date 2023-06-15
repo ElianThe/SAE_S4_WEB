@@ -10,8 +10,7 @@ class GetArticlesAction extends Action
 {
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $articlesService = new ArticlesService();
-        $articles = $articlesService->getArticles();
+        $articles = ArticlesService::getArticles();
 
         $data = [
             'type' => 'collection',

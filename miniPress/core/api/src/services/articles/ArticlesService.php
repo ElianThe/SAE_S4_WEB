@@ -6,7 +6,7 @@ use miniPress\api\models\Article;
 
 class ArticlesService
 {
-    public function getArticles(): array
+    public static function getArticles(): array
     {
         $articles = Article::with('user')->get();
         return $articles->toArray();
