@@ -14,12 +14,9 @@ class CategoriesService
     public static function getCategorieById($id): array
     {
         $cat = Categorie::find($id);
-        if($cat){
-            $result = $cat->toArray();
-            $result["articles"] = $cat->articles->toArray() ;
-            return $result;
-        } else {
-            return [];
-        }
+        return array_merge(
+            $cat->toArray(),
+            ['articles' => $cat->articles->toArray()]
+        );
     }
 }
