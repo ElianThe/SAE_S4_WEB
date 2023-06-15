@@ -22,7 +22,7 @@ class GetArticlesAction extends Action
             $data['articles'][] = [
                 'titre' => $article['title'],
                 'date_creation' => $article['created_at'],
-                'auteur' => $article['user']
+                'user_id' => $article['user']['id']
             ];
         }
 

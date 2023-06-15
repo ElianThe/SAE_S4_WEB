@@ -17,7 +17,7 @@ class GetCategorieArticlesActions extends Action
             $data[] = [
                 'titre' => $article["title"],
                 'date_creation' => $article["created_at"],
-                'auteur' => $article["user_id"],
+                'user_id' => $article["user_id"],
                 'url' => "/api/articles/{$article["id"]}"
             ];
         }
