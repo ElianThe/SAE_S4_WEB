@@ -9,4 +9,7 @@ $app = require_once __DIR__ . '/../src/conf/bootstrap.php';
 
 (require_once __DIR__ . '/../src/conf/routes.php')($app);
 
+header('Access-Control-Allow-Origin: *');
+
 $app->run();
+
