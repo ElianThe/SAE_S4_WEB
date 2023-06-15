@@ -1,0 +1,27 @@
+{% extends "miniPress.skeleton.twig" %}
+
+{% block title %} Inscrivez-vous {% endblock %}
+
+{% block minipress %}
+
+<form method="post" action="{{ url_for('signinPost') }}">
+    <h2>Se connecter</h2>
+
+    {% if error is defined %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    {% if success is defined %}
+        <p class="success">{{ success }}</p>
+    {% endif %}
+
+    <label for="email">email</label>
+    <input type="text" id="email" name="email"><br>
+
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" name="password"><br>
+
+    <button type="submit">Connexion</button>
+
+</form>
+
+{% endblock %}

@@ -12,6 +12,8 @@ $twig = Twig::create( __DIR__ . '/../views',
                                     ['cache' => __DIR__ . '/../views/cache',
                                     'auto_reload' => true]);
 
+$twig->getEnvironment()->addGlobal('session', $_SESSION);
+
 $app->add(TwigMiddleware::create($app, $twig)) ;
 
 //gestionnaire d'erreur

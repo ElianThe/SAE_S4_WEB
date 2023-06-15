@@ -10,16 +10,15 @@ class GetCategorieArticlesActions extends Action
 {
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $categorieArticles = CategoriesService::getCategorieById($args["id"])
-            ->articles();
-
         $data = [];
-        foreach ($categorieArticles->get() as $article) {
+        foreach (
+            CategoriesService::getCategorieById($args["id"])["articles"] as $article
+        ) {
             $data[] = [
-                'titre' => $article->title,
-                'date_creation' => $article->created_at,
-                'auteur' => $article->user->email,
-                'url' => "/api/articles/{$article->id}"
+                'titre' => $article["title"],
+                'date_creation' => $article["created_at"],
+                'auteur' => $article["user_id"],
+                'url' => "/api/articles/{$article["id"]}"
             ];
         }
 

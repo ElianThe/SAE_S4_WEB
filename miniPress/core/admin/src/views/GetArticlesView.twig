@@ -1,0 +1,26 @@
+{% extends "miniPress.skeleton.twig" %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block minipress %}
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between flex-wrap mt-4">
+            <h1>Liste des articles</h1>
+            <a href="{{ url_for('createArticle') }}" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Ajouter un article</a>
+        </div>
+        <div class="row">
+            {% for article in articles %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ article.title }}</h5>
+                            <p class="card-text">{{ article.summary }}</p>
+                            <p class="card-text">{{ article.content }}</p>
+                            <a href="#" class="btn btn-primary">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
