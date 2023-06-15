@@ -4,6 +4,7 @@ use miniPress\admin\actions\GetArticlesAction;
 use miniPress\admin\actions\GetCategoriesAction;
 use miniPress\admin\actions\GetAddUserAction;
 use miniPress\admin\actions\GetConnexionUserAction;
+use miniPress\admin\actions\GetLogoutAction;
 use miniPress\admin\actions\PostAddUserAction;
 use miniPress\admin\actions\GetNewArticleAction;
 use miniPress\admin\actions\GetNewCategorieAction;
@@ -33,10 +34,10 @@ return function (App $app): void {
     //route get
     $app->get('/register[/]', GetAddUserAction::class)->setName('register');
     $app->get('/signin[/]', GetConnexionUserAction::class)->setName('signin');
+    $app->get('/logout[/]', GetLogoutAction::class)->setName('logout');
 
     //route post
     $app->post('/register[/]', PostAddUserAction::class)->setName('registerPost');
     $app->post('/signin[/]', PostConnexionUserAction::class)->setName('signinPost');
-
 };
 
