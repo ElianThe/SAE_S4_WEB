@@ -20,9 +20,9 @@ class GetArticlesAction extends Action
 
         foreach ($articles as $article) {
             $data['articles'][] = [
-                'titre' => $article->title,
-                'date_creation' => $article->created_at,
-                'auteur' => $article->user->email
+                'titre' => $article['title'],
+                'date_creation' => $article['created_at'],
+                'auteur' => $article['user']
             ];
         }
 

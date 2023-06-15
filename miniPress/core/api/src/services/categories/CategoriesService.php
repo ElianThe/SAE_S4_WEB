@@ -11,8 +11,12 @@ class CategoriesService
         return Categorie::all()->toArray();
     }
 
-    public static function getCategorieById($id): Categorie
+    public static function getCategorieById($id): array
     {
-        return Categorie::all()->find($id);
+        $cat = Categorie::find($id);
+        return array_merge(
+            $cat->toArray(),
+            ['articles' => $cat->articles->toArray()]
+        );
     }
 }

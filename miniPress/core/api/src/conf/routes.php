@@ -14,6 +14,9 @@ return function (\Slim\App $app): void {
             $categorie->get('/{id}/articles', GetCategorieArticlesActions::class);
         });
 
-        $api->get('/articles', GetArticlesAction::class);
+        $api->group('/articles', function (RouteCollectorProxy $articles) {
+            $articles->get('', GetArticlesAction::class);
+            $articles->get('/{id}', GetArticleById::class);
+        });
     });
 };
