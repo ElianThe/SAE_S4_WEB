@@ -2,10 +2,12 @@
 
 use miniPress\admin\actions\GetArticlesAction;
 use miniPress\admin\actions\GetCategoriesAction;
-use miniPress\admin\actions\AddUserAction;
-use miniPress\admin\actions\AddUserPostAction;
+use miniPress\admin\actions\GetAddUserAction;
+use miniPress\admin\actions\GetConnexionUserAction;
+use miniPress\admin\actions\PostAddUserAction;
 use miniPress\admin\actions\GetNewArticleAction;
 use miniPress\admin\actions\GetNewCategorieAction;
+use miniPress\admin\actions\PostConnexionUserAction;
 use miniPress\admin\actions\PostNewArticleAction;
 use miniPress\admin\actions\PostNewCategorieAction;
 use Slim\App;
@@ -29,10 +31,12 @@ return function (App $app): void {
     //résumé et le contenu sont saisis et stockés en base de données au format markdown
 
     //route get
-    $app->get('/register[/]', AddUserAction::class)->setName('register');
+    $app->get('/register[/]', GetAddUserAction::class)->setName('register');
+    $app->get('/signin[/]', GetConnexionUserAction::class)->setName('signin');
 
     //route post
-    $app->post('/register[/]', AddUserPostAction::class)->setName('registerPost');
+    $app->post('/register[/]', PostAddUserAction::class)->setName('registerPost');
+    $app->post('/signin[/]', PostConnexionUserAction::class)->setName('signinPost');
 
 };
 

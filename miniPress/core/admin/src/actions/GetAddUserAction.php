@@ -7,12 +7,12 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 
-class AddUserAction extends Action
+class GetAddUserAction extends Action
 {
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'AddUserView.twig');
+        return $view->render($rs, 'GetAddUserView.twig');
     }
 }
