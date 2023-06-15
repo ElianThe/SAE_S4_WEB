@@ -6,6 +6,7 @@ use miniPress\admin\services\user\UserNotFoundException;
 use miniPress\admin\services\user\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
 class PostAddUserAction extends Action
@@ -40,9 +41,8 @@ class PostAddUserAction extends Action
             ]);
         }
 
-        $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'GetAddUserView.twig',[
-            'success' => 'L\'utilisateur a bien été ajouté'
-        ]);
+        $url = RouteContext::fromRequest($rq)->getRouteParser()->urlFor('signin');
+
+        return $rs->withStatus(302)->withHeader('Location', $url);
     }
 }
