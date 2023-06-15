@@ -1,6 +1,6 @@
 <?php
 
-namespace miniPress\core\admin\src\services;
+namespace miniPress\admin\services\user;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use miniPress\admin\models\User;
@@ -11,16 +11,16 @@ class UserService
     public function checkPassword($password) : bool
     {
         if (strlen($password) < 8) {
-            throw new UserNotFoundException('Le mot de passe doit contenir au moins 8 caractères', 404);
+            return false;
         }
         if (!preg_match("#[0-9]+#", $password)) {
-            throw new UserNotFoundException('Le mot de passe doit contenir au moins un chiffre', 404);
+            return false;
         }
         if (!preg_match("#[a-zA-Z]+#", $password)) {
-            throw new UserNotFoundException('Le mot de passe doit contenir au moins une lettre', 404);
+            return false;
         }
         if (!preg_match("#[\W]+#", $password)) {
-            throw new UserNotFoundException('Le mot de passe doit contenir au moins un caractère spécial', 404);
+            return false;
         }
         return true;
     }
@@ -31,7 +31,7 @@ class UserService
             User::where('email', $email)->firstOrFail();
             return true;
         } catch (ModelNotFoundException $exception) {
-            throw new UserNotFoundException('Utilisateur non trouvé', 404);
+            return false;
         }
     }
 

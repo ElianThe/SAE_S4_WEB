@@ -1,3 +1,70 @@
+form {
+    max-width: 400px;
+    margin: 4rem auto;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333333;
+    border-bottom: 2px solid #008080;
+    padding-bottom: 10px;
+}
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333333;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="number"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+form button[type="submit"] {
+    background-color: #79cfd7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+form button[type="submit"]:hover {
+    background-color: #45b0b7;
+}
+
+.error {
+    color: white;
+    background-color: #ff0000;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.success {
+    color: white;
+    background-color: #00be00;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
 /* RESET */
 html, body {
     margin: 0;

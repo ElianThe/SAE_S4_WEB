@@ -1,6 +1,6 @@
 <?php
 
-namespace miniPress\core\admin\src\services;
+namespace miniPress\admin\services\user;
 
 class UserNotFoundException extends \Exception
 {
