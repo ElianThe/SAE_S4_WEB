@@ -7,6 +7,7 @@ use miniPress\admin\actions\GetProfileAction;
 use miniPress\admin\actions\GetRegisterAction;
 use miniPress\admin\actions\GetConnexionUserAction;
 use miniPress\admin\actions\GetLogoutAction;
+use miniPress\admin\actions\PostAddEditorAction;
 use miniPress\admin\actions\PostRegisterAction;
 use miniPress\admin\actions\GetNewArticleAction;
 use miniPress\admin\actions\GetNewCategorieAction;

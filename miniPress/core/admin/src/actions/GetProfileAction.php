@@ -16,9 +16,6 @@ class GetProfileAction extends Action
         $user = $_SESSION['user'];
         $user = unserialize(serialize($user));
 
-        $user->role = 'admin';
-        $user->save();
-
         $view = Twig::fromRequest($rq);
         return $view->render($rs, 'GetProfileView.twig', [
             'user' => $user,
