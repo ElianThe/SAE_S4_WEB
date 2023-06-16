@@ -16,16 +16,16 @@ class PostConnexionUserAction extends Action
     {
         $params = $rq->getParsedBody();
 
-        $boxService = new UserService();
+        $userService = new UserService();
 
-        if(!$boxService->existFromDatabase($params['email'])) {
+        if(!$userService->existFromDatabase($params['email'])) {
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'GetConnexionUserView.twig',[
                 'error' => 'L\'utilisateur n\'existe pas'
             ]);
         }else {
-            if ($boxService->isSamePassword($params['email'], $params['password'])) {
-                $boxService->signIn($params['email'], $params['password']);
+            if ($userService->isSamePassword($params['email'], $params['password'])) {
+                $userService->signIn($params['email'], $params['password']);
             } else {
                 $view = Twig::fromRequest($rq);
                 return $view->render($rs, 'GetConnexionUserView.twig', [
