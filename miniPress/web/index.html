@@ -12,13 +12,19 @@
 </head>
 <body>
 <h1 class="text-center">MiniPress</h1>
+<hr>
 <div class="container">
     <div class="row">
-        <div class="col-12">
-            <button class="btn btn-secondary" id="btn_articles">Liste des articles</button>
-            <button class="btn btn-secondary" id="btn_categories">Liste des catégories</button>
+        <div class="col-lg-3">
+            <div id="sidebar" class="mt-4">
+                <div id="sidebar-loader" class="text-center d-none">
+                    <span class="spinner-border" role="status"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
             <div id="main" class="mt-4">
-                <div id="loader" class="text-center d-none">
+                <div id="main-loader" class="text-center d-none">
                     <span class="spinner-border" role="status"></span>
                 </div>
             </div>
