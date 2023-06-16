@@ -120,3 +120,54 @@ footer {
     color: #fff; /* Couleur du texte au survol */
 }
 
+.deconnexion {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 2rem 1rem 2rem;
+}
+
+.deconnexion a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #FF5A5A;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.deconnexion a:hover {
+    background-color: #E62929;
+}
+
+.role {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 2rem 1rem 2rem;
+}
+
+.role p {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.role .admin {
+    background-color: #5d65cb;
+}
+
+.role .editor {
+    background-color: #45b0b7;
+}
+
+
+
+
+

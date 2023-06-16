@@ -85,6 +85,7 @@ class UserService
             $user = new User();
             $user->email = $attributs['email'];
             $user->password = password_hash($attributs['password'], PASSWORD_DEFAULT);
+            $user->role = User::ADMIN;
             $user->save();
             return true;
         }
@@ -95,5 +96,21 @@ class UserService
     {
         unset($_SESSION['user']);
         return true;
+    }
+
+    public function createEditorUser(string $email, string $password): bool
+    {
+        if ($this->existFromDatabase($email)) {
+            throw new UserNotFoundException('Utilisateur déjà existant', 404);
+        }
+        if ($this->checkPassword($password)) {
+            $user = new User();
+            $user->email = $email;
+            $user->password = password_hash($password, PASSWORD_DEFAULT);
+            $user->role = User::EDITOR;
+            $user->save();
+            return true;
+        }
+        throw new UserNotFoundException('Mot de passe incorrect', 404);
     }
 }
