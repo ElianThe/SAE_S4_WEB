@@ -1,11 +1,13 @@
 <?php
 
+use miniPress\admin\actions\GetAddEditorAction;
 use miniPress\admin\actions\GetArticlesAction;
 use miniPress\admin\actions\GetCategoriesAction;
 use miniPress\admin\actions\GetProfileAction;
 use miniPress\admin\actions\GetRegisterAction;
 use miniPress\admin\actions\GetConnexionUserAction;
 use miniPress\admin\actions\GetLogoutAction;
+use miniPress\admin\actions\PostAddEditorAction;
 use miniPress\admin\actions\PostRegisterAction;
 use miniPress\admin\actions\GetNewArticleAction;
 use miniPress\admin\actions\GetNewCategorieAction;
@@ -37,11 +39,12 @@ return function (App $app): void {
     $app->get('/signin[/]', GetConnexionUserAction::class)->setName('signin');
     $app->get('/logout[/]', GetLogoutAction::class)->setName('logout');
     $app->get('/profile[/]', GetProfileAction::class)->setName('profile');
+    $app->get('/addEditor[/]', GetAddEditorAction::class)->setName('addEditor');
 
     //route post
     $app->post('/register[/]', PostRegisterAction::class)->setName('registerPost');
     $app->post('/signin[/]', PostConnexionUserAction::class)->setName('signinPost');
-    $app->post('/profile[/]', PostConnexionUserAction::class)->setName('profilePost');
+    $app->post('/addEditor[/]', PostAddEditorAction::class)->setName('addEditorPost');
 
 };
 
