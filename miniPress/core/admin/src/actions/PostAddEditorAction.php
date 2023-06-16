@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
-class PostConnexionUserAction extends Action
+class PostAddEditorAction extends Action
 {
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
@@ -18,20 +18,13 @@ class PostConnexionUserAction extends Action
 
         $userService = new UserService();
 
-        if(!$userService->existFromDatabase($params['email'])) {
+        if($userService->existFromDatabase($params['email'])) {
             $view = Twig::fromRequest($rq);
-            return $view->render($rs, 'GetConnexionUserView.twig',[
-                'error' => 'L\'utilisateur n\'existe pas'
+            return $view->render($rs, 'GetAddEditorView.twig',[
+                'error' => 'L\'utilisateur existe déjà'
             ]);
         }else {
-            if ($userService->isSamePassword($params['email'], $params['password'])) {
-                $userService->signIn($params['email'], $params['password']);
-            } else {
-                $view = Twig::fromRequest($rq);
-                return $view->render($rs, 'GetConnexionUserView.twig', [
-                    'error' => 'Le mot de passe est incorrect'
-                ]);
-            }
+            $userService->createEditorUser($params['email'], $params['password']);
         }
 
         $url = RouteContext::fromRequest($rq)->getRouteParser()->urlFor('articlesList');

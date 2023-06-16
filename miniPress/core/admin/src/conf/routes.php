@@ -1,11 +1,14 @@
 <?php
 
+use miniPress\admin\actions\GetAddEditorAction;
 use miniPress\admin\actions\GetArticlesAction;
 use miniPress\admin\actions\GetCategoriesAction;
-use miniPress\admin\actions\GetAddUserAction;
+use miniPress\admin\actions\GetProfileAction;
+use miniPress\admin\actions\GetRegisterAction;
 use miniPress\admin\actions\GetConnexionUserAction;
 use miniPress\admin\actions\GetLogoutAction;
-use miniPress\admin\actions\PostAddUserAction;
+use miniPress\admin\actions\PostAddEditorAction;
+use miniPress\admin\actions\PostRegisterAction;
 use miniPress\admin\actions\GetNewArticleAction;
 use miniPress\admin\actions\GetNewCategorieAction;
 use miniPress\admin\actions\PostConnexionUserAction;
@@ -32,12 +35,16 @@ return function (App $app): void {
     //résumé et le contenu sont saisis et stockés en base de données au format markdown
 
     //route get
-    $app->get('/register[/]', GetAddUserAction::class)->setName('register');
+    $app->get('/register[/]', GetRegisterAction::class)->setName('register');
     $app->get('/signin[/]', GetConnexionUserAction::class)->setName('signin');
     $app->get('/logout[/]', GetLogoutAction::class)->setName('logout');
+    $app->get('/profile[/]', GetProfileAction::class)->setName('profile');
+    $app->get('/addEditor[/]', GetAddEditorAction::class)->setName('addEditor');
 
     //route post
-    $app->post('/register[/]', PostAddUserAction::class)->setName('registerPost');
+    $app->post('/register[/]', PostRegisterAction::class)->setName('registerPost');
     $app->post('/signin[/]', PostConnexionUserAction::class)->setName('signinPost');
+    $app->post('/addEditor[/]', PostAddEditorAction::class)->setName('addEditorPost');
+
 };
 
