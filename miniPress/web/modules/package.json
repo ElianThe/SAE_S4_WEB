@@ -3,6 +3,6 @@
     "esbuild": "^0.18.1"
   },
   "scripts": {
-    "build": "esbuild main.js --bundle --minify --outfile=dist/out.js"
+    "build": "esbuild ../main.js --bundle --minify --outfile=dist/out.js"
   }
 }
