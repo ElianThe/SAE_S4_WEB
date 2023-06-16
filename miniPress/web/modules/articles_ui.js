@@ -1,19 +1,11 @@
-
 function displayArticles(articles) {
-    let articlesContainer = document.getElementById('articles-container');
-
-    // Vérifier si l'élément conteneur des articles existe déjà
-    if (!articlesContainer) {
-        articlesContainer = document.createElement('div');
-        articlesContainer.id = 'articles-container';
-        document.getElementById('main').appendChild(articlesContainer);
-        const title = document.createElement('h3');
-        title.classList.add('text-decoration-underline');
-        title.textContent = 'Articles';
-        articlesContainer.appendChild(title);
-    } else {
-        articlesContainer.innerHTML = '';
-    }
+    const articlesContainer = document.createElement('div');
+    articlesContainer.id = 'articles-container';
+    document.getElementById('main').appendChild(articlesContainer);
+    const title = document.createElement('h3');
+    title.classList.add('text-decoration-underline');
+    title.textContent = 'Articles';
+    articlesContainer.appendChild(title);
 
     // Tri des articles par ordre chronologique inverse
     const sortedArticles = articles.articles.sort((a, b) => {
