@@ -100,9 +100,6 @@ class UserService
 
     public function createEditorUser(string $email, string $password): bool
     {
-        if ($this->existFromDatabase($email)) {
-            throw new UserNotFoundException('Utilisateur déjà existant', 404);
-        }
         if ($this->checkPassword($password)) {
             $user = new User();
             $user->email = $email;

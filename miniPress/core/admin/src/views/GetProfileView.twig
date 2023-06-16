@@ -1,6 +1,6 @@
 {% extends "miniPress.skeleton.twig" %}
 
-{% block title %} Inscrivez-vous {% endblock %}
+{% block title %} Votre profil {% endblock %}
 
 {% block minipress %}
 
@@ -25,7 +25,7 @@
 
         {% if user.role == 'admin' %}
             <div class="admin">
-                <a href="#">Créer un éditeur</a>
+                <a href="{{ url_for('addEditor') }}">Créer un éditeur</a>
             </div>
         {% endif %}
         <div class="deconnexion">

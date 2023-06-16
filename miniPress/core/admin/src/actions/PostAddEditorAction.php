@@ -18,6 +18,15 @@ class PostAddEditorAction extends Action
 
         $userService = new UserService();
 
+        if($userService->existFromDatabase($params['email'])) {
+            $view = Twig::fromRequest($rq);
+            return $view->render($rs, 'GetAddEditorView.twig',[
+                'error' => 'L\'utilisateur existe déjà'
+            ]);
+        }else {
+            $userService->createEditorUser($params['email'], $params['password']);
+        }
+
         $url = RouteContext::fromRequest($rq)->getRouteParser()->urlFor('articlesList');
 
         return $rs->withStatus(302)->withHeader('Location', $url);
