@@ -57,19 +57,11 @@ class UserService
         throw new UserNotFoundException('Mot de passe incorrect', 404);
     }
 
-    public function getUserFromEmail(string $email) : User
-    {
-        try {
-            return User::where('email', $email)->firstOrFail();
-        } catch (ModelNotFoundException $exception) {
-            throw new UserNotFoundException('Utilisateur non trouvé', 404);
-        }
-    }
-
     public function signIn(string $email, string $password) : bool
     {
         if ($this->isSamePassword($email, $password)) {
-            $_SESSION['user'] = $this->getUserFromEmail($email);
+            $user = User::where('email', $email)->firstOrFail();
+            $_SESSION['user_id'] = $user->id;
             return true;
         }
         throw new UserNotFoundException('Mot de passe incorrect', 404);
