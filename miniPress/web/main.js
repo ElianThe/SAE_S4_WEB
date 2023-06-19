@@ -3,5 +3,6 @@ import articles from './modules/articles.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     categories.load();
-    articles.load('/articles');
+    articles.load('/api/articles');
+
 });

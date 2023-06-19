@@ -2,14 +2,10 @@ function displayArticles(articles) {
     const articlesContainer = document.createElement('div');
     articlesContainer.id = 'articles-container';
     document.getElementById('main').appendChild(articlesContainer);
-    const title = document.createElement('h3');
-    title.classList.add('text-decoration-underline');
-    title.textContent = 'Articles';
-    articlesContainer.appendChild(title);
 
     // Tri des articles par ordre chronologique inverse
     const sortedArticles = articles.articles.sort((a, b) => {
-        return new Date(b.date_creation) - new Date(a.date_creation);
+        return new Date(b.article.date_creation) - new Date(a.article.date_creation);
     });
 
     const table = document.createElement('table');
@@ -31,7 +27,9 @@ function displayArticles(articles) {
 
     const tableBody = document.createElement('tbody');
 
-    sortedArticles.forEach(article => {
+    let article;
+    sortedArticles.forEach(art => {
+        article = art.article;
         const tr = document.createElement('tr');
 
         const titleTd = document.createElement('td');
