@@ -43,4 +43,18 @@ class ArticleService
         return $articles->toArray();
     }
 
+
+    /**
+     * @throws CategorieNotFoundException
+     */
+    public function getArticlesByCategorie(int $cat_id): array
+    {
+        try {
+            $articles = Article::where('cat_id', $cat_id)->get();
+            return $articles->toArray();
+        } catch (ModelNotFoundException) {
+            throw new CategorieNotFoundException();
+        }
+    }
+
 }
