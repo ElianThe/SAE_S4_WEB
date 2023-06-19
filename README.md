@@ -1,6 +1,6 @@
 # SAE_S4_WEB
 
-# MyGiftBox.net
+# MiniPress
 
 - Groupe : MASSON Paul, SEILER Mathis , 
 
