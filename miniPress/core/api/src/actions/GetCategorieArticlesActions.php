@@ -20,13 +20,13 @@ class GetCategorieArticlesActions extends Action
         ) {
             $data[] = [
                 'article' => [
-                    'titre' => $article["title"],
-                    'date_creation' => $article["created_at"],
-                    'user_id' => $article["user_id"],
+                    'title' => $article['title'],
+                    'created_at' => $article['created_at'],
+                    'user_id' => $article['user_id'], //TODO : a changer pour se baser sur l'objet user
                 ],
                 'links' => [
                     'self' => [
-                        'href' => $routeContext->getRouteParser()->urlFor('article', ['id' => $article['id']])
+                        'href' => RouteContext::fromRequest($rq)->getRouteParser()->urlFor('article', ['id' => $article['id']])
                     ]
                 ]
             ];

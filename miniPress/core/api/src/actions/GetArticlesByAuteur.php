@@ -7,6 +7,7 @@ use miniPress\api\services\articles\ArticlesService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Routing\RouteContext;
 
 class GetArticlesByAuteur extends Action
 {
@@ -22,8 +23,24 @@ class GetArticlesByAuteur extends Action
         }
 
         $data = [
-            'article' => $articles
+            'type' => 'collection',
+            'count' => count($articles),
+            'articles' => []
         ];
+        foreach ($articles as $article) {
+            $data['articles'][] = [
+                'article' => [
+                    'title' => $article['title'],
+                    'created_at' => $article['created_at'],
+                    'user_id' => $article['user']['id'],
+                ],
+                'links' => [
+                    'self' => [
+                        'href' => RouteContext::fromRequest($rq)->getRouteParser()->urlFor('article', ['id' => $article['id']])
+                    ]
+                ]
+            ];
+        }
 
         $rs->getBody()->write(json_encode($data));
         return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);

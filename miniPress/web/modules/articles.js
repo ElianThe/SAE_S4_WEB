@@ -31,6 +31,24 @@ function load(url) {
         });
 }
 
+function loadByAuthor(authorId) {
+    if (loading) return;
+    const articles = document.getElementById('articles-container');
+    if (articles) articles.remove();
+    displayLoader(true);
+
+    miniPressLoader.fetchArticlesByAuthor(authorId)
+        .then(articles => {
+            articles_ui.displayArticles(articles);
+            displayLoader(false);
+        })
+        .catch(err => {
+            console.log(err);
+            displayLoader(false);
+        });
+}
+
 export default {
-    load
+    load,
+    loadByAuthor
 }

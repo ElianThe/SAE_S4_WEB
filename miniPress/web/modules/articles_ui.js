@@ -1,11 +1,14 @@
+import articlesJS from './articles.js';
+
 function displayArticles(articles) {
     const articlesContainer = document.createElement('div');
     articlesContainer.id = 'articles-container';
     document.getElementById('main').appendChild(articlesContainer);
 
     // Tri des articles par ordre chronologique inverse
+    console.log(articles);
     const sortedArticles = articles.articles.sort((a, b) => {
-        return new Date(b.article.date_creation) - new Date(a.article.date_creation);
+        return new Date(b.article.created_at) - new Date(a.article.created_at);
     });
 
     const table = document.createElement('table');
@@ -33,15 +36,22 @@ function displayArticles(articles) {
         const tr = document.createElement('tr');
 
         const titleTd = document.createElement('td');
-        titleTd.textContent = article.titre;
+        titleTd.textContent = article.title;
         tr.appendChild(titleTd);
 
         const creationDateTd = document.createElement('td');
-        creationDateTd.textContent = article.date_creation;
+        creationDateTd.textContent = article.created_at;
         tr.appendChild(creationDateTd);
 
         const userIdTd = document.createElement('td');
-        userIdTd.textContent = article.user_id;
+        const authorLink = document.createElement('a');
+        authorLink.href = '#';
+        authorLink.textContent = article.user_id;
+        authorLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            articlesJS.loadByAuthor(article.user_id);
+        });
+        userIdTd.appendChild(authorLink);
         tr.appendChild(userIdTd);
 
         tableBody.appendChild(tr);
