@@ -7,6 +7,7 @@ use miniPress\api\services\articles\ArticlesService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Routing\RouteContext;
 
 class GetArticleById extends Action
 {
@@ -19,10 +20,16 @@ class GetArticleById extends Action
         } catch (ArticlesNotFoundException $exception) {
             throw new HttpNotFoundException($rq, 'Article avec id non trouvé');
         }
+
+        $routeContext = RouteContext::fromRequest($rq);
+
         $data = [
+            'type' => 'resource',
             'article' => $article
         ];
+
         $rs->getBody()->write(json_encode($data));
+
         return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }
