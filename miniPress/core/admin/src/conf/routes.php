@@ -30,10 +30,6 @@ return function (App $app): void {
 
     $app->get('/categorie[/]', GetCategoriesAction::class)->setName('categoriesList');
 
-    //1) Créer un article : affichage et traitement d’un formulaire de saisie d’un article comprenant le
-    //titre, le résumé et le contenu de l’article. La date de création est automatiquement valorisée. Le
-    //résumé et le contenu sont saisis et stockés en base de données au format markdown
-
     //route get
     $app->get('/register[/]', GetRegisterAction::class)->setName('register');
     $app->get('/signin[/]', GetConnexionUserAction::class)->setName('signin');

@@ -5,6 +5,7 @@ namespace miniPress\admin\services\article;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use miniPress\admin\models\Article;
+use miniPress\admin\models\User;
 
 class ArticleService
 {
@@ -25,7 +26,7 @@ class ArticleService
             $article->summary = $data['summary'];
             $article->content = $data['content'];
             $article->cat_id = $data['cat_id'];
-            $article->user_id = 1;
+            $article->user_id = $_SESSION['user_id'];
             $article->isPublished = 0;
         } else {
             throw new Exception('Missing title, summary or content in box creation');
