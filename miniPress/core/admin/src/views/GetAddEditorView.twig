@@ -4,8 +4,8 @@
 
 {% block minipress %}
 
-<form method="post" action="{{ url_for('signinPost') }}">
-    <h2>Se connecter</h2>
+<form method="post" action="{{ url_for('addEditorPost') }}">
+    <h2>Ajouter un utilisateur</h2>
 
     {% if error is defined %}
         <p class="error">{{ error }}</p>
@@ -20,10 +20,7 @@
     <label for="password">Mot de passe</label>
     <input type="password" id="password" name="password"><br>
 
-    <button type="submit">Connexion</button>
-
-    <p class="mt-2">Pas encore inscrit ? <a href="{{ url_for('register') }}">Inscrivez-vous</a></p>
-
+    <button type="submit">Ajouter un compte éditeur</button>
 </form>
 
 {% endblock %}

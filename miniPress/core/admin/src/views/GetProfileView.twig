@@ -1,0 +1,36 @@
+{% extends "miniPress.skeleton.twig" %}
+
+{% block title %} Votre profil {% endblock %}
+
+{% block minipress %}
+
+    <form>
+        <h2>Mon compte</h2>
+
+        <div class="role">
+            {% if user.role == 'editor' %}
+               <p class="editor"> Vous êtes éditeur</p>
+            {% endif %}
+            {% if user.role == 'admin' %}
+                <p class="admin"> Vous êtes administrateur</p>
+            {% endif %}
+        </div>
+        <div class="email">
+            <label for="email">email</label>
+            <input type="email" name="email" id="email" value="{{ user.email }}" disabled>
+        </div>
+        <div class="change-password">
+            {#  <a href="{{ url_for('resetPassword') }}"> Changer mon mot de passe </a>#}
+        </div>
+
+        {% if user.role == 'admin' %}
+            <div class="admin">
+                <a href="{{ url_for('addEditor') }}">Créer un éditeur</a>
+            </div>
+        {% endif %}
+        <div class="deconnexion">
+            <a href="{{ url_for('logout') }}">Déconnexion</a>
+        </div>
+    </form>
+
+{% endblock %}

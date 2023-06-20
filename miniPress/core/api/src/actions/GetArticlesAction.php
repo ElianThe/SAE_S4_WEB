@@ -5,6 +5,7 @@ namespace miniPress\api\actions;
 use miniPress\api\services\articles\ArticlesService;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Routing\RouteContext;
 
 class GetArticlesAction extends Action
 {
@@ -20,9 +21,16 @@ class GetArticlesAction extends Action
 
         foreach ($articles as $article) {
             $data['articles'][] = [
-                'titre' => $article['title'],
-                'date_creation' => $article['created_at'],
-                'user_id' => $article['user']['id']
+                'article' => [
+                    'title' => $article['title'],
+                    'created_at' => $article['created_at'],
+                    'user_id' => $article['user']['id'],
+                ],
+                'links' => [
+                    'self' => [
+                        'href' => RouteContext::fromRequest($rq)->getRouteParser()->urlFor('article', ['id' => $article['id']])
+                    ]
+                ]
             ];
         }
 

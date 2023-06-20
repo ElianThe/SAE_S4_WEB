@@ -57,19 +57,11 @@ class UserService
         return false;
     }
 
-    public function getUserFromEmail(string $email): User
-    {
-        try {
-            return User::where('email', $email)->firstOrFail();
-        } catch (ModelNotFoundException $exception) {
-            throw new UserNotFoundException('Utilisateur non trouvé', 404);
-        }
-    }
-
-    public function signIn(string $email, string $password): bool
+    public function signIn(string $email, string $password) : bool
     {
         if ($this->isSamePassword($email, $password)) {
-            $_SESSION['user'] = $this->getUserFromEmail($email);
+            $user = User::where('email', $email)->firstOrFail();
+            $_SESSION['user_id'] = $user->id;
             return true;
         } else {
             return false;
@@ -85,6 +77,7 @@ class UserService
             $user = new User();
             $user->email = $attributs['email'];
             $user->password = password_hash($attributs['password'], PASSWORD_DEFAULT);
+            $user->role = User::ADMIN;
             $user->save();
             return true;
         }
@@ -95,5 +88,18 @@ class UserService
     {
         unset($_SESSION['user']);
         return true;
+    }
+
+    public function createEditorUser(string $email, string $password): bool
+    {
+        if ($this->checkPassword($password)) {
+            $user = new User();
+            $user->email = $email;
+            $user->password = password_hash($password, PASSWORD_DEFAULT);
+            $user->role = User::EDITOR;
+            $user->save();
+            return true;
+        }
+        throw new UserNotFoundException('Mot de passe incorrect', 404);
     }
 }
