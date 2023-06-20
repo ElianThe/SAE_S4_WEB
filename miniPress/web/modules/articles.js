@@ -13,15 +13,14 @@ function displayLoader(bool) {
     loading = bool;
 }
 
-function load(url) {
+function load(url, sort = '') {
     if (loading) return;
     const articles = document.getElementById('articles-container');
     if (articles) articles.remove();
     displayLoader(true);
 
-    miniPressLoader.fetch_miniPress_api(url)
+    miniPressLoader.fetch_miniPress_api(url + sort)
         .then(articles => {
-            // console.log(articles);
             articles_ui.displayArticles(articles);
             displayLoader(false);
         })
@@ -31,13 +30,13 @@ function load(url) {
         });
 }
 
-function loadByAuthor(authorId) {
+function loadByAuthor(authorId, sort = '') {
     if (loading) return;
     const articles = document.getElementById('articles-container');
     if (articles) articles.remove();
     displayLoader(true);
 
-    miniPressLoader.fetchArticlesByAuthor(authorId)
+    miniPressLoader.fetchArticlesByAuthor(authorId + sort)
         .then(articles => {
             articles_ui.displayArticles(articles);
             displayLoader(false);

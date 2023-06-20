@@ -2,6 +2,8 @@
 
 namespace miniPress\api\actions;
 
+use miniPress\api\services\categories\CategorieNotFoundException;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 use miniPress\api\services\categories\CategoriesService;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -11,7 +13,11 @@ class GetCategoriesAction extends Action
 {
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $categories = CategoriesService::getCategories();
+        try {
+            $categories = CategoriesService::getCategories();
+        } catch (CategorieNotFoundException) {
+            throw new HttpNotFoundException($rq, 'categorie pas trouvée');
+        }
 
         $routeContext = RouteContext::fromRequest($rq);
 

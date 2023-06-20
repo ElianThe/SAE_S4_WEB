@@ -2,21 +2,28 @@
 
 namespace miniPress\api\actions;
 
+use miniPress\api\services\categories\CategorieNotFoundException;
 use miniPress\api\services\categories\CategoriesService;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
 class GetCategorieArticlesActions extends Action
 {
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-        $routeContext = RouteContext::fromRequest($rq);
 
         $data = [];
 
+        try {
+            $larticle =  CategoriesService::getCategorieById($args["id"])["articles"];
+        } catch (CategorieNotFoundException) {
+            throw new HttpNotFoundException($rq, 'Categorie pas trouvée');
+        }
+
         foreach (
-            CategoriesService::getCategorieById($args["id"])["articles"] as $article
+            $larticle as $article
         ) {
             $data[] = [
                 'article' => [
