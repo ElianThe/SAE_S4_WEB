@@ -86,7 +86,7 @@ class UserService
 
     public function logout(): bool
     {
-        unset($_SESSION['user']);
+        unset($_SESSION['user_id']);
         return true;
     }
 
@@ -102,4 +102,20 @@ class UserService
         }
         throw new UserNotFoundException('Mot de passe incorrect', 404);
     }
+
+    //verifie si l'user est admin
+    public function isAdmin(): bool
+    {
+        if (isset($_SESSION['user_id'])) {
+            $user = User::where('id', $_SESSION['user_id'])->firstOrFail();
+            if ($user->role === User::ADMIN) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
 }

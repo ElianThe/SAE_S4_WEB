@@ -11,6 +11,37 @@ function displayArticles(articles) {
         return new Date(b.article.created_at) - new Date(a.article.created_at);
     });
 
+    const sortContainer = document.createElement('div');
+
+    const sortLabel = document.createElement('label');
+    sortLabel.textContent = "Trier par : ";
+    sortContainer.appendChild(sortLabel);
+
+    const sortSelect = document.createElement('select');
+    sortSelect.id = 'sort';
+
+    const sortOptions = [
+        { value: '', text: 'Aucun' },
+        { value: '?sort=date-asc', text: 'Date de publication croissante' },
+        { value: '?sort=date-desc', text: 'Date de publication décroissante' },
+        { value: '?sort=auteur', text: 'Auteur' },
+    ];
+    sortOptions.forEach(optionData => {
+        const option = document.createElement('option');
+        option.value = optionData.value;
+        option.textContent = optionData.text;
+        sortSelect.appendChild(option);
+    });
+
+    sortSelect.addEventListener('change', (event) => {
+        const sort = event.target.value;
+        articlesJS.load('/api/articles', sort);
+    });
+
+    sortContainer.appendChild(sortSelect);
+
+    articlesContainer.appendChild(sortContainer);
+
     const table = document.createElement('table');
     table.classList.add('table', 'table-striped');
 
