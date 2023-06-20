@@ -36,10 +36,10 @@ class ArticleService
         $article->save();
     }
 
-
+    //trier par date de création descendante
     public function getArticles(): array
     {
-        $articles = Article::all();
+        $articles = Article::orderBy('created_at', 'desc')->get();
         return $articles->toArray();
     }
 
@@ -47,10 +47,11 @@ class ArticleService
     /**
      * @throws CategorieNotFoundException
      */
+    ////trier par date de création descendante
     public function getArticlesByCategorie(int $cat_id): array
     {
         try {
-            $articles = Article::where('cat_id', $cat_id)->get();
+            $articles = Article::where('cat_id', $cat_id)->orderBy('created_at', 'desc')->get();
             return $articles->toArray();
         } catch (ModelNotFoundException) {
             throw new CategorieNotFoundException();
