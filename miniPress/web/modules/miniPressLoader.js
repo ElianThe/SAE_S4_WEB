@@ -9,6 +9,11 @@ function fetch_miniPress_api(url, options) {
         });
 }
 
+function fetchArticlesByAuthor(authorId) {
+    return fetch_miniPress_api(`/api/auteurs/${authorId}/articles`);
+}
+
 export default {
-    fetch_miniPress_api
+    fetch_miniPress_api,
+    fetchArticlesByAuthor
 }

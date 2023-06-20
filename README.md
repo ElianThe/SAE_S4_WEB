@@ -1,12 +1,12 @@
 # SAE_S4_WEB
 
-# MyGiftBox.net
+# MiniPress
 
 - Groupe : MASSON Paul, SEILER Mathis , 
 
 ## Installation
 
-Suivez ces étapes pour installer MyGiftBox :
+Suivez ces étapes pour installer MiniPress :
 
 ## Fonctionnalitées
 ### Gestion des articles :
