@@ -2,7 +2,18 @@
 
 # MiniPress
 
-- Groupe : MASSON Paul, SEILER Mathis , 
+- Groupe : MASSON Paul, SEILER Mathis, GUIFFAULT Elian, VAVASSEUR Régis 
+
+## URL du dépot git : https://github.com/ElianThe/SAE_S4_WEB
+
+## URL de l'application d'administration sur dock-etu :
+
+## URL de l'api sur dock-etu :
+
+## Identifiant et mot de passe des utilisateurs créés :
+
+- id: , password: 
+- id: , password: 
 
 ## Installation
 
