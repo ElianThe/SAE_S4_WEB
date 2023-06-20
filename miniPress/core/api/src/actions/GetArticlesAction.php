@@ -25,7 +25,7 @@ class GetArticlesAction extends Action
                     'id' => $article['id'],
                     'title' => $article['title'],
                     'created_at' => $article['created_at'],
-                    'user_id' => $article['user']['id'],
+                    'user_id' => $article['user_id'],
                 ],
                 'links' => [
                     'self' => [
