@@ -38,7 +38,9 @@ class GetArticlesAction extends Action
                 $data['articles'][] = [
                     'article' => [
                         'title' => $article['title'],
+                        'summary' => $article['summary'],
                         'created_at' => $article['created_at'],
+                        'isPublished' => $article['isPublished'],
                         'user_id' => $article['user_id'],
                     ],
                     'links' => [

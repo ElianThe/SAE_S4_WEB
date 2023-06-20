@@ -1,9 +1,43 @@
 import articlesJS from './articles.js';
 
-function displayArticles(articles) {
+let searchInput = document.getElementById('search-input');
+if(!searchInput){
+    searchInput = document.createElement('input');
+    searchInput.type = "text";
+    searchInput.id = "search-input";
+    searchInput.placeholder = "Entrez un mot-clé...";
+    document.getElementById('main').appendChild(searchInput);
+}
+
+let originalArticles = []; // Store a copy of the original articles
+
+function displayArticles(articles, filter=false) {
+    if(!filter) {
+        originalArticles = articles; // Save a copy of the articles
+    }
     const articlesContainer = document.createElement('div');
     articlesContainer.id = 'articles-container';
     document.getElementById('main').appendChild(articlesContainer);
+
+    const searchContainer = document.createElement('div');
+    searchContainer.classList.add('search-container');
+
+    const searchLabel = document.createElement('label');
+    searchLabel.textContent = "Rechercher dans le titre ou le résumé: ";
+    searchContainer.appendChild(searchLabel);
+
+    searchInput.addEventListener('input', (event) => {
+        const keyword = event.target.value;
+        const filteredArticles = originalArticles.articles.filter(article => { // Use the original articles for filtering
+            return article.article.title.includes(keyword) || article.article.summary.includes(keyword);
+        });
+        // Remove current articles before displaying the new ones
+        const currentArticlesContainer = document.getElementById('articles-container');
+        if (currentArticlesContainer) currentArticlesContainer.remove();
+        displayArticles({articles: filteredArticles}, true);
+    });
+
+    articlesContainer.appendChild(searchContainer);
 
     // Tri des articles par ordre chronologique inverse
     console.log(articles);

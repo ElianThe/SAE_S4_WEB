@@ -29,7 +29,9 @@ class GetCategorieArticlesActions extends Action
                 'article' => [
                     'id' => $article['id'],
                     'title' => $article['title'],
+                    'summary' => $article['summary'],
                     'created_at' => $article['created_at'],
+                    'isPublished' => $article['isPublished'],
                     'user_id' => $article['user_id'], //TODO : a changer pour se baser sur l'objet user
                 ],
                 'links' => [
