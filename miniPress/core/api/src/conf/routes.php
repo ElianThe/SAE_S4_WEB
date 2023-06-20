@@ -18,7 +18,7 @@ return function (\Slim\App $app): void {
 
         $api->group('/articles', function (RouteCollectorProxy $articles) {
             $articles->get('[/]', GetArticlesAction::class)->setName('articles');
-            $articles->get('/{id}', GetArticleById::class)->setName('article');
+            $articles->get('/{id:[0-9]+}', GetArticleById::class)->setName('article');
         });
 
         $api->get('/auteurs/{id}/articles[/]', GetArticlesByAuteur::class)->setName('auteurArticles');
