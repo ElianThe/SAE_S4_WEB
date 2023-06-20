@@ -2,8 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import '../models/Category.dart';
+import '../providers/article_provider.dart';
 import 'category_preview.dart';
 
 class CategoryMaster extends StatefulWidget {
@@ -27,7 +29,7 @@ class _CategoryMasterState extends State<CategoryMaster> {
       for (var categoryObject in categories) {
         var category = categoryObject['category'];
         listCategories
-            .add(Category(id: category['id'], name: category['name']));
+            .add(Category(id: category['id'], name: category['name'], links: categoryObject['links']));
       }
     }
     return Future<List<Category>>.value(listCategories);
@@ -44,7 +46,12 @@ class _CategoryMasterState extends State<CategoryMaster> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     child: CategoryPreview(category: snapshot.data[index]),
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        Provider.of<ArticleProvider>(context, listen: false)
+                            .selectedArticlesUrl(snapshot.data[index].links['articles']['href']);
+                      });
+                    },
                   );
                 });
           } else {
