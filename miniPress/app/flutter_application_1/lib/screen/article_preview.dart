@@ -16,6 +16,8 @@ class _ArticlePreviewState extends State<ArticlePreview> {
     return ListTile(
       title: Text(widget.article.title),
       subtitle: Text("user id :  ${widget.article.auteur}"),
+      trailing: Text(
+          "${widget.article.dateCrea.day}/${widget.article.dateCrea.month}/${widget.article.dateCrea.year} ${widget.article.dateCrea.hour}:${widget.article.dateCrea.minute}"),
     );
   }
 }
