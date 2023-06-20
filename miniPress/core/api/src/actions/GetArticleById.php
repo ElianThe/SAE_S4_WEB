@@ -17,15 +17,15 @@ class GetArticleById extends Action
 
         try {
             $article = ArticlesService::getArticleById($id);
-        } catch (ArticlesNotFoundException $exception) {
+        } catch (ArticlesNotFoundException) {
             throw new HttpNotFoundException($rq, 'Article avec id non trouvé');
         }
 
-        $routeContext = RouteContext::fromRequest($rq);
-
         $data = [
-            'type' => 'resource',
-            'article' => $article
+            'article' => [
+                'type' => 'resource',
+                'article' => $article
+            ]
         ];
 
         $rs->getBody()->write(json_encode($data));

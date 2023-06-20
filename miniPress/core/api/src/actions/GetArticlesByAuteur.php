@@ -18,7 +18,7 @@ class GetArticlesByAuteur extends Action
 
         try {
             $articles = ArticlesService::getArticleByAuteur($idAuteur);
-        } catch (ArticlesNotFoundException $exception) {
+        } catch (ArticlesNotFoundException) {
             throw new HttpNotFoundException($rq, "Les articles du user pas trouvé ou le user est inconnu");
         }
 
