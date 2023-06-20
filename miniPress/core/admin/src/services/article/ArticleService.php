@@ -5,6 +5,7 @@ namespace miniPress\admin\services\article;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use miniPress\admin\models\Article;
+use miniPress\admin\models\User;
 
 class ArticleService
 {
@@ -25,7 +26,7 @@ class ArticleService
             $article->summary = $data['summary'];
             $article->content = $data['content'];
             $article->cat_id = $data['cat_id'];
-            $article->user_id = 1;
+            $article->user_id = $_SESSION['user_id'];
             $article->isPublished = 0;
         } else {
             throw new Exception('Missing title, summary or content in box creation');
@@ -35,11 +36,26 @@ class ArticleService
         $article->save();
     }
 
-
+    //trier par date de création descendante
     public function getArticles(): array
     {
-        $articles = Article::all();
+        $articles = Article::orderBy('created_at', 'desc')->get();
         return $articles->toArray();
+    }
+
+
+    /**
+     * @throws CategorieNotFoundException
+     */
+    ////trier par date de création descendante
+    public function getArticlesByCategorie(int $cat_id): array
+    {
+        try {
+            $articles = Article::where('cat_id', $cat_id)->orderBy('created_at', 'desc')->get();
+            return $articles->toArray();
+        } catch (ModelNotFoundException) {
+            throw new CategorieNotFoundException();
+        }
     }
 
 }

@@ -6,6 +6,7 @@ use miniPress\admin\services\user\UserNotFoundException;
 use miniPress\admin\services\user\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
 class PostConnexionUserAction extends Action
@@ -15,20 +16,26 @@ class PostConnexionUserAction extends Action
     {
         $params = $rq->getParsedBody();
 
-        $boxService = new UserService();
+        $userService = new UserService();
 
-        try {
-            $boxService->signIn($params['email'], $params['password']);
-        } catch (UserNotFoundException $exception) {
+        if(!$userService->existFromDatabase($params['email'])) {
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'GetConnexionUserView.twig',[
-                'error' => 'Identifiant ou mot de passe incorrect'
+                'error' => 'L\'utilisateur n\'existe pas'
             ]);
+        }else {
+            if ($userService->isSamePassword($params['email'], $params['password'])) {
+                $userService->signIn($params['email'], $params['password']);
+            } else {
+                $view = Twig::fromRequest($rq);
+                return $view->render($rs, 'GetConnexionUserView.twig', [
+                    'error' => 'Le mot de passe est incorrect'
+                ]);
+            }
         }
 
-        $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'GetConnexionUserView.twig',[
-            'success' => 'L\'utilisateur a bien été connecté'
-        ]);
+        $url = RouteContext::fromRequest($rq)->getRouteParser()->urlFor('articlesList');
+
+        return $rs->withStatus(302)->withHeader('Location', $url);
     }
 }

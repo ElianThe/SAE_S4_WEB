@@ -6,6 +6,7 @@ use miniPress\api\services\articles\ArticlesNotFoundException;
 use miniPress\api\services\articles\ArticlesService;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Routing\RouteContext;
 use Slim\Exception\HttpNotFoundException;
 
 class GetArticlesAction extends Action
@@ -39,17 +40,22 @@ class GetArticlesAction extends Action
                 ];
                 foreach ($articles as $article) {
                     $data['articles'][] = [
-                        'titre' => $article['title'],
-                        'date_creation' => $article['created_at'],
-                        'auteur' => $article['user']
+                        'article' => [
+                            'title' => $article['title'],
+                            'created_at' => $article['created_at'],
+                            'user_id' => $article['user']['id'],
+                        ],
+                        'links' => [
+                            'self' => [
+                                'href' => RouteContext::fromRequest($rq)->getRouteParser()->urlFor('article', ['id' => $article['id']])
+                            ]
+                        ]
                     ];
                 }
             }
         } catch (ArticlesNotFoundException) {
             throw new  HttpNotFoundException($rq, 'articles pas trouvés');
         }
-
-
 
         $rs->getBody()->write(json_encode($data));
 

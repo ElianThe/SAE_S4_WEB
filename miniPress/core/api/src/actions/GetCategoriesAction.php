@@ -2,6 +2,7 @@
 
 namespace miniPress\api\actions;
 
+use Slim\Routing\RouteContext;
 use miniPress\api\services\categories\CategoriesService;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -12,11 +13,24 @@ class GetCategoriesAction extends Action
     {
         $categories = CategoriesService::getCategories();
 
+        $routeContext = RouteContext::fromRequest($rq);
+
         $data = [
             'type' => 'collection',
             'count' => count($categories),
-            'categories' => $categories
+            'categories' => []
         ];
+
+        foreach ($categories as $category) {
+            $data['categories'][] = [
+                'category' => $category,
+                'links' => [
+                    'articles' => [
+                        'href' => $routeContext->getRouteParser()->urlFor('categorieArticles', ['id' => $category['id']])
+                    ]
+                ]
+            ];
+        }
 
         $rs->getBody()->write(json_encode($data));
 

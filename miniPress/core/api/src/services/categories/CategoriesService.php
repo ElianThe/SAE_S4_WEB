@@ -13,10 +13,6 @@ class CategoriesService
 
     public static function getCategorieById($id): array
     {
-        $cat = Categorie::find($id);
-        return array_merge(
-            $cat->toArray(),
-            ['articles' => $cat->articles->toArray()]
-        );
+        return Categorie::where('id', $id)->with("articles")->first()->toArray();
     }
 }
