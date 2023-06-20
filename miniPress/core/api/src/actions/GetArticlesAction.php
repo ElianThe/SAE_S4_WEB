@@ -21,7 +21,6 @@ class GetArticlesAction extends Action
         }
 
         try {
-
             if ($sort == "auteur") {
                 $articles = ArticlesService::getArticleSortAuteur();
             } else if ($sort == "date-asc" || $sort == "date-desc") {
@@ -49,7 +48,6 @@ class GetArticlesAction extends Action
                     ]
                 ];
             }
-
         } catch (ArticlesNotFoundException) {
             throw new  HttpNotFoundException($rq, 'articles pas trouvés');
         }

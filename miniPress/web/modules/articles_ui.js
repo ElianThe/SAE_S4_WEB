@@ -36,7 +36,15 @@ function displayArticles(articles) {
         const tr = document.createElement('tr');
 
         const titleTd = document.createElement('td');
-        titleTd.textContent = article.title;
+        const titleLink = document.createElement('a');
+        titleLink.href = '#';
+        titleLink.textContent = article.title;
+        titleLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log(article);
+            articlesJS.loadArticleById(article.id);
+        });
+        titleTd.appendChild(titleLink);
         tr.appendChild(titleTd);
 
         const creationDateTd = document.createElement('td');
@@ -63,7 +71,35 @@ function displayArticles(articles) {
     document.getElementById('main').appendChild(articlesContainer);
 }
 
+const showdown = require('showdown');
+const converter = new showdown.Converter();
+
+function displayFullArticle(article) {
+    const articlesContainer = document.createElement('div');
+    articlesContainer.id = 'articles-container';
+    document.getElementById('main').appendChild(articlesContainer);
+
+    const title = document.createElement('h2');
+    title.textContent = article.title;
+    articlesContainer.appendChild(title);
+
+    const createdAt = document.createElement('p');
+    createdAt.textContent = article.created_at;
+    articlesContainer.appendChild(createdAt);
+
+    // Convert markdown to HTML
+    const markdownContent = article.content;
+    const htmlContent = converter.makeHtml(markdownContent);
+
+    // Append HTML content to the container
+    const contentDiv = document.createElement('div');
+    contentDiv.innerHTML = htmlContent;
+    articlesContainer.appendChild(contentDiv);
+
+    document.getElementById('main').appendChild(articlesContainer);
+}
 
 export default {
-    displayArticles
+    displayArticles,
+    displayFullArticle
 }
