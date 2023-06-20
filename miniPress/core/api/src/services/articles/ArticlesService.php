@@ -9,7 +9,11 @@ class ArticlesService
 {
     public static function getArticles(): array
     {
-        $articles = Article::with('user')->get();
+        try {
+            $articles = Article::with('user')->get();
+        } catch (ModelNotFoundException) {
+            throw new ArticlesNotFoundException("l'article n'a pas été trouvé avec cette id");
+        }
         return $articles->toArray();
     }
 
@@ -30,5 +34,27 @@ class ArticlesService
             throw new ArticlesNotFoundException("l'id du user n'est pas trouvé");
         }
         return $article->toArray();
+    }
+
+    public static function getArticleSortDate ($sort) : array {
+        try {
+            if ($sort == "date-asc") {
+                $articles = Article::all()->sortBy('published_at');
+            } else {
+                $articles = Article::all()->sortByDesc('published_at');
+            }
+        } catch (ModelNotFoundException) {
+            throw new ArticlesNotFoundException('"le sort est surement mauvais');
+        }
+        return $articles->toArray();
+    }
+
+    public static function getArticleSortAuteur () : array{
+        try {
+            $articles = Article::all()->sortBy('user_id');
+        } catch (ModelNotFoundException) {
+            throw new ArticlesNotFoundException('"le sort est surement mauvais');
+        }
+        return $articles->toArray();
     }
 }

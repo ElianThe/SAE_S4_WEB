@@ -5,6 +5,7 @@ use miniPress\api\actions\GetArticlesAction;
 use miniPress\api\actions\GetArticlesByAuteur;
 use miniPress\api\actions\GetCategorieArticlesActions;
 use miniPress\api\actions\GetCategoriesAction;
+use miniPress\api\actions\TriParDateArticle;
 use Slim\Routing\RouteCollectorProxy;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -17,8 +18,8 @@ return function (\Slim\App $app): void {
         });
 
         $api->group('/articles', function (RouteCollectorProxy $articles) {
+            $articles->get('/{id:[0-9]+}', GetArticleById::class);
             $articles->get('', GetArticlesAction::class);
-            $articles->get('/{id}', GetArticleById::class);
         });
 
         $api->get('/auteurs/{id}/articles', GetArticlesByAuteur::class);
