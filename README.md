@@ -6,7 +6,7 @@
 
 ## Installation
 
-Suivez ces étapes pour installer MyGiftBox :
+Suivez ces étapes pour installer MiniPress :
 
 ## Fonctionnalitées
 ### Gestion des articles :
