@@ -58,4 +58,38 @@ class ArticleService
         }
     }
 
+    //publier un article ou le dépublier si il est déjà publié
+
+    /**
+     * @throws ArticleNotFoundException
+     */
+    public function publishArticle(int $id): void
+    {
+        try {
+            $article = Article::findOrFail($id);
+            if ($article->isPublished == 0) {
+                $article->isPublished = 1;
+                $article->published_at = date('Y-m-d H:i:s');
+            } else {
+                $article->isPublished = 0;
+                $article->published_at = null;
+            }
+            $article->save();
+        } catch (ModelNotFoundException) {
+            throw new ArticleNotFoundException();
+        }
+    }
+
+    //verifie si l'article appartient à l'user
+    public function isArticleOwner(mixed $article_id, mixed $id_user): bool
+    {
+        $user = User::where('id' ,$id_user)->firstOrFail();
+        $article = Article::findOrFail($article_id);
+        if ($article->user_id === $user->id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -1,4 +1,6 @@
 <?php
+
+use miniPress\admin\services\user\UserSessionExtension;
 use miniPress\admin\services\utils\Eloquent;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
@@ -15,6 +17,7 @@ $twig = Twig::create( __DIR__ . '/../views',
 $twig->getEnvironment()->addGlobal('session', $_SESSION);
 
 $app->add(TwigMiddleware::create($app, $twig)) ;
+$twig->addExtension(new UserSessionExtension());
 
 //gestionnaire d'erreur
 $app->addErrorMiddleware(true, false, false);

@@ -4,6 +4,7 @@ use miniPress\admin\actions\GetAddEditorAction;
 use miniPress\admin\actions\GetArticlesAction;
 use miniPress\admin\actions\GetCategoriesAction;
 use miniPress\admin\actions\GetProfileAction;
+use miniPress\admin\actions\GetPublicationAction;
 use miniPress\admin\actions\GetRegisterAction;
 use miniPress\admin\actions\GetConnexionUserAction;
 use miniPress\admin\actions\GetLogoutAction;
@@ -29,6 +30,8 @@ return function (App $app): void {
     $app->post('/categorie/new[/]', PostNewCategorieAction::class)->setName('createdCategorie');
 
     $app->get('/categorie[/]', GetCategoriesAction::class)->setName('categoriesList');
+
+    $app->get('/publication/{article_id}[/]', GetPublicationAction::class)->setName('publication');
 
     //route get
     $app->get('/register[/]', GetRegisterAction::class)->setName('register');
