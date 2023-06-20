@@ -48,7 +48,25 @@ function loadByAuthor(authorId) {
         });
 }
 
+function loadArticleById(id) {
+    if (loading) return;
+    const articles = document.getElementById('articles-container');
+    if (articles) articles.remove();
+    displayLoader(true);
+
+    miniPressLoader.fetch_miniPress_api(`/api/articles/${id}`)
+        .then(articleData => {
+            articles_ui.displayFullArticle(articleData.article);  // display full article
+            displayLoader(false);
+        })
+        .catch(err => {
+            console.log(err);
+            displayLoader(false);
+        });
+}
+
 export default {
     load,
-    loadByAuthor
+    loadByAuthor,
+    loadArticleById
 }

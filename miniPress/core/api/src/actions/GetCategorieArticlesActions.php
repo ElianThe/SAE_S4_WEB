@@ -20,6 +20,7 @@ class GetCategorieArticlesActions extends Action
         ) {
             $data[] = [
                 'article' => [
+                    'id' => $article['id'],
                     'title' => $article['title'],
                     'created_at' => $article['created_at'],
                     'user_id' => $article['user_id'], //TODO : a changer pour se baser sur l'objet user
