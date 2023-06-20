@@ -22,10 +22,8 @@ class GetArticleById extends Action
         }
 
         $data = [
-            'article' => [
-                'type' => 'resource',
-                'article' => $article
-            ]
+            'type' => 'resource',
+            'article' => $article
         ];
 
         $rs->getBody()->write(json_encode($data));
