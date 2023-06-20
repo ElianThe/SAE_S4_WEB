@@ -4,21 +4,16 @@ namespace miniPress\api\actions;
 
 use miniPress\api\services\articles\ArticlesNotFoundException;
 use miniPress\api\services\articles\ArticlesService;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
 
-class GetArticlesAction extends Action
+class TriParDateArticle extends Action
 {
+
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
-
-        if (isset($rq->getQueryParams()['sort'])) {
-            $sort = $rq->getQueryParams()['sort'];
-        } else {
-            $sort = "";
-        }
-
+        $sort = $args['sort'];
         try {
             if ($sort == "auteur") {
                 $articles = ArticlesService::getArticleSortAuteur();
@@ -30,29 +25,12 @@ class GetArticlesAction extends Action
                 $data = [
                     'articles' => $articles
                 ];
-            } else {
-                $articles = ArticlesService::getArticles();
-                $data = [
-                    'type' => 'collection',
-                    'count' => count($articles),
-                    'articles' => []
-                ];
-                foreach ($articles as $article) {
-                    $data['articles'][] = [
-                        'titre' => $article['title'],
-                        'date_creation' => $article['created_at'],
-                        'auteur' => $article['user']
-                    ];
-                }
             }
         } catch (ArticlesNotFoundException) {
             throw new  HttpNotFoundException($rq, 'articles pas trouvés');
         }
 
-
-
         $rs->getBody()->write(json_encode($data));
-
         return $rs->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }
