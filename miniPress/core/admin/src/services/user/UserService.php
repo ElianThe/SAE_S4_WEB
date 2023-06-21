@@ -74,14 +74,13 @@ class UserService
         return true;
     }
 
-    public function createEditorUser(string $email, string $password, string $name): bool
+    public function createEditorUser(string $email, string $password): bool
     {
         if ($this->checkPassword($password)) {
             $user = new User();
             $user->email = $email;
             $user->password = password_hash($password, PASSWORD_DEFAULT);
             $user->role = User::EDITOR;
-            $user->name = $name;
             $user->save();
             return true;
         }

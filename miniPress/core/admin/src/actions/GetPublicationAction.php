@@ -7,7 +7,7 @@ use miniPress\admin\services\article\ArticleService;
 use miniPress\admin\services\user\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\Exception\HttpBadRequestException;
+use Slim\Exception\HttpUnauthorizedException;
 use Slim\Routing\RouteContext;
 
 class GetPublicationAction extends Action
@@ -32,7 +32,7 @@ class GetPublicationAction extends Action
         } elseif ($userService->isAdmin()){
             $articleService->publishArticle($id);
         } else {
-            throw new HttpBadRequestException($rq, "Vous n'êtes pas autorisé à publier/dépublier cet article");
+            throw new HttpUnauthorizedException($rq, "Vous n'êtes pas autorisé à publier/dépublier cet article");
 
         }
 

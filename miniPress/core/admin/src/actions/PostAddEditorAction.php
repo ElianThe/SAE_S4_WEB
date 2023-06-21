@@ -6,6 +6,7 @@ use miniPress\admin\services\user\UserNotFoundException;
 use miniPress\admin\services\user\UserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpUnauthorizedException;
 use Slim\Routing\RouteContext;
 use Slim\Views\Twig;
 
@@ -18,13 +19,17 @@ class PostAddEditorAction extends Action
 
         $userService = new UserService();
 
+        if(!$userService->isAdmin()) {
+            throw new HttpUnauthorizedException($rq, "Vous n'êtes pas autorisé à accéder à la page de création de compte éditeur");
+        }
+
         if($userService->existFromDatabase($params['email'])) {
             $view = Twig::fromRequest($rq);
             return $view->render($rs, 'GetAddEditorView.twig',[
                 'error' => 'L\'utilisateur existe déjà'
             ]);
         }else {
-            $userService->createEditorUser($params['email'], $params['password'], $params['name']);
+            $userService->createEditorUser($params['email'], $params['password']);
         }
 
         $url = RouteContext::fromRequest($rq)->getRouteParser()->urlFor('articlesList');
