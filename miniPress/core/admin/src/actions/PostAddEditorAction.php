@@ -24,7 +24,7 @@ class PostAddEditorAction extends Action
                 'error' => 'L\'utilisateur existe déjà'
             ]);
         }else {
-            $userService->createEditorUser($params['email'], $params['password']);
+            $userService->createEditorUser($params['email'], $params['password'], $params['name']);
         }
 
         $url = RouteContext::fromRequest($rq)->getRouteParser()->urlFor('articlesList');

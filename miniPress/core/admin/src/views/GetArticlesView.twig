@@ -32,6 +32,7 @@
                             {% if article.published_at is not null %}
                                 <p class="card-text">Publié le : {{ article.published_at }}</p>
                             {% endif %}
+                            <p class="card-text">Auteur : {{ article.user.name }}</p>
                             {% if article.isPublished == 0 %}
                                 <a href="{{ url_for('publication', {'article_id' : article.id}) }}" class="btn btn-primary">Publier</a>
                             {% else %}

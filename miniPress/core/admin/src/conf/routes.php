@@ -21,6 +21,9 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 return function (App $app): void {
 
+    //route de base
+    $app->get('/', GetConnexionUserAction::class)->setName('home');
+
     $app->get('/article/new[/]', GetNewArticleAction::class)->setName('createArticle');
     $app->post('/article/new[/]', PostNewArticleAction::class)->setName('createdArticle');
 
@@ -34,14 +37,12 @@ return function (App $app): void {
     $app->get('/publication/{article_id}[/]', GetPublicationAction::class)->setName('publication');
 
     //route get
-    $app->get('/register[/]', GetRegisterAction::class)->setName('register');
     $app->get('/signin[/]', GetConnexionUserAction::class)->setName('signin');
     $app->get('/logout[/]', GetLogoutAction::class)->setName('logout');
     $app->get('/profile[/]', GetProfileAction::class)->setName('profile');
     $app->get('/addEditor[/]', GetAddEditorAction::class)->setName('addEditor');
 
     //route post
-    $app->post('/register[/]', PostRegisterAction::class)->setName('registerPost');
     $app->post('/signin[/]', PostConnexionUserAction::class)->setName('signinPost');
     $app->post('/addEditor[/]', PostAddEditorAction::class)->setName('addEditorPost');
 

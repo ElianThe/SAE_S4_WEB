@@ -23,6 +23,11 @@ class PostNewArticleAction extends Action
      */
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
+        //si est pas connecté alors erreur
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('Vous devez être connecté pour accéder à cette page');
+        }
+
         $data = $rq->getParsedBody();
 
         //Verification du token transmis par le formulaire
