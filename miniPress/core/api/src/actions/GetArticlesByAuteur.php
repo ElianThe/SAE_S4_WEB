@@ -35,7 +35,7 @@ class GetArticlesByAuteur extends Action
                     'summary' => $article['summary'],
                     'created_at' => $article['created_at'],
                     'isPublished' => $article['isPublished'],
-                    'user_id' => $article['user']['id'],
+                    'user' => $article['user'],
                 ],
                 'links' => [
                     'self' => [

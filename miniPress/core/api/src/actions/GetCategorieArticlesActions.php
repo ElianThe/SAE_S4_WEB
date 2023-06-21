@@ -17,13 +17,13 @@ class GetCategorieArticlesActions extends Action
         $data = [];
 
         try {
-            $larticle =  CategoriesService::getCategorieById($args["id"])["articles"];
+            $articles =  CategoriesService::getCategorieById($args["id"])["articles"];
         } catch (CategorieNotFoundException) {
             throw new HttpNotFoundException($rq, 'Categorie pas trouvée');
         }
 
         foreach (
-            $larticle as $article
+            $articles as $article
         ) {
             $data[] = [
                 'article' => [
@@ -32,7 +32,7 @@ class GetCategorieArticlesActions extends Action
                     'summary' => $article['summary'],
                     'created_at' => $article['created_at'],
                     'isPublished' => $article['isPublished'],
-                    'user_id' => $article['user_id'], //TODO : a changer pour se baser sur l'objet user
+                    'user' => $article['user'],
                 ],
                 'links' => [
                     'self' => [

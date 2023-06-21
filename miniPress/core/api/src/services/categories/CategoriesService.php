@@ -20,8 +20,11 @@ class CategoriesService
     public static function getCategorieById($id): array
     {
         try {
-            $categorie = Categorie::where('id', $id)->with("articles")->first()->toArray();
-        } catch (ModelNotFoundException) {
+            $categorie = Categorie::where('id', $id)
+                ->with(["articles" => function ($query) {
+                    $query->with('user'); // Charger la relation 'user' pour chaque article
+                }])->first()->toArray();
+        } catch (ModelNotFoundException $e) {
             throw new CategorieNotFoundException();
         }
         return $categorie;

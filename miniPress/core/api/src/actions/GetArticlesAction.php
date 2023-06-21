@@ -41,7 +41,7 @@ class GetArticlesAction extends Action
                         'summary' => $article['summary'],
                         'created_at' => $article['created_at'],
                         'isPublished' => $article['isPublished'],
-                        'user_id' => $article['user_id'],
+                        'user' => $article['user'],
                     ],
                     'links' => [
                         'self' => [

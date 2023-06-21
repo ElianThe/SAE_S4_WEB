@@ -23,7 +23,19 @@ class GetArticleById extends Action
 
         $data = [
             'type' => 'resource',
-            'article' => $article
+            'count' => count($article),
+            'article' => [
+                'title' => $article['title'],
+                'summary' => $article['summary'],
+                'created_at' => $article['created_at'],
+                'isPublished' => $article['isPublished'],
+                'user' => $article['user'],
+                'links' => [
+                    'self' => [
+                        'href' => RouteContext::fromRequest($rq)->getRouteParser()->urlFor('article', ['id' => $article['id']])
+                    ]
+                ]
+            ]
         ];
 
         $rs->getBody()->write(json_encode($data));
