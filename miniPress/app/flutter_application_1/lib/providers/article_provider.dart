@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/Article.dart';
+import '../models/article.dart';
 
 class ArticleProvider extends ChangeNotifier {
   String _selectedArticlesUrl = '/api/articles';

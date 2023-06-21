@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-import '../models/Article.dart';
+import '../models/article.dart';
 
 class ArticleDetails extends StatefulWidget {
   final Article article;

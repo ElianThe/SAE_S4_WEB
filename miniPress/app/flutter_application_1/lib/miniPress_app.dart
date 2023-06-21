@@ -62,6 +62,13 @@ class _MiniPressAppState extends State<MiniPressApp> {
                       child: CategoryMaster(),
                     ),
                   ],
-                )))));
+                )),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/article/add');
+                  },
+                  backgroundColor: Colors.blue,
+                  child: const Icon(Icons.filter_alt_outlined),
+                ))));
   }
 }

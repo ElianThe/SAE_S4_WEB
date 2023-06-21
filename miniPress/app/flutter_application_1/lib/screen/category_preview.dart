@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/Category.dart';
+import '../models/category.dart';
 
 class CategoryPreview extends StatefulWidget {
   final Category category;

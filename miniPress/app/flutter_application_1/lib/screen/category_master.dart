@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-import '../models/Category.dart';
+import '../models/category.dart';
 import '../providers/article_provider.dart';
 import 'category_preview.dart';
 

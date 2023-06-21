@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/Article.dart';
+import 'package:flutter_application_1/models/article.dart';
 
 class ArticlePreview extends StatefulWidget {
   final Article article;
