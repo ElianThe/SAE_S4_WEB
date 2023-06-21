@@ -2,7 +2,7 @@
 
 # MiniPress
 
-- Groupe : MASSON Paul, SEILER Mathis , 
+- Groupe : MASSON Paul, SEILER Mathis , CARLIER Maxime, GUIFFAULT Elian, VAVASSEUR Régis
 
 ## Installation
 
@@ -18,13 +18,13 @@ Suivez ces étapes pour installer MiniPress :
 ### Gestion des utilisateurs :
 - [x] Formulaire d’authentification
 - [x] Contrôle d’accès
-- [] Auteurs
+- [x] Auteurs
 ### API :
-- [] Liste des catégories
-- [] Liste des articles
-- [] articles d’une catégorie
-- [] article complet
-- [] Liste des articles d’un auteur
+- [x] Liste des catégories
+- [x] Liste des articles
+- [x] articles d’une catégorie
+- [x] article complet
+- [x] Liste des articles d’un auteur
 ### Fonctionnalités étendues :
 - [x] 
 - [x] 

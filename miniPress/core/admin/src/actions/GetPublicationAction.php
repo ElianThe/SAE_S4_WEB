@@ -18,6 +18,11 @@ class GetPublicationAction extends Action
      */
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
+        //si est pas connecté alors erreur
+        if (!isset($_SESSION['user_id'])) {
+            throw new HttpBadRequestException($rq, "Vous n'êtes pas connecté");
+        }
+
         $userService = new UserService();
         $articleService = new ArticleService();
         $id = $args['article_id'];

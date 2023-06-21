@@ -68,35 +68,20 @@ class UserService
         }
     }
 
-    public function register(array $attributs): bool
-    {
-        if ($this->existFromDatabase($attributs['email'])) {
-            throw new UserNotFoundException('Utilisateur déjà existant', 404);
-        }
-        if ($this->checkPassword($attributs['password'])) {
-            $user = new User();
-            $user->email = $attributs['email'];
-            $user->password = password_hash($attributs['password'], PASSWORD_DEFAULT);
-            $user->role = User::ADMIN;
-            $user->save();
-            return true;
-        }
-        throw new UserNotFoundException('Mot de passe incorrect', 404);
-    }
-
     public function logout(): bool
     {
         unset($_SESSION['user_id']);
         return true;
     }
 
-    public function createEditorUser(string $email, string $password): bool
+    public function createEditorUser(string $email, string $password, string $name): bool
     {
         if ($this->checkPassword($password)) {
             $user = new User();
             $user->email = $email;
             $user->password = password_hash($password, PASSWORD_DEFAULT);
             $user->role = User::EDITOR;
+            $user->name = $name;
             $user->save();
             return true;
         }
