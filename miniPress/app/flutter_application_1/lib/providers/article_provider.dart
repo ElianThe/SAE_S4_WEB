@@ -7,8 +7,19 @@ import '../models/article.dart';
 
 class ArticleProvider extends ChangeNotifier {
   String _selectedArticlesUrl = '/api/articles';
+  bool isAscending = false;
+  bool _sorted = false;
+  List<Article> _articles = [];
 
   Future<List<Article>> getArticleList() async {
+    if (_sorted) {
+      _sorted = false;
+      _articles.sort((a, b) => isAscending
+        ? a.createdAt.compareTo(b.createdAt)
+        : b.createdAt.compareTo(a.createdAt));
+      return Future<List<Article>>.value(_articles);
+    }
+
     List<Article> listArticles = [];
     var url = Uri.parse('http://localhost:5380$_selectedArticlesUrl');
     var response = await http.Client().get(url);
@@ -16,7 +27,11 @@ class ArticleProvider extends ChangeNotifier {
       var jsonData = json.decode(response.body);
       var articles = jsonData['articles'];
 
-      // trier les articles par date de création inverse
+      articles.add(articles[0]);
+      articles[articles.length - 1]['article']['title'] = 'Article Test';
+      articles[articles.length - 1]['article']['created_at'] =
+          '2023-11-04 04:01:00';
+      // trier les articles par date de création décroissante
       articles.sort((a, b) => DateTime.parse(b['article']['created_at'])
           .compareTo(DateTime.parse(a['article']['created_at'])));
 
@@ -27,16 +42,23 @@ class ArticleProvider extends ChangeNotifier {
             summary: article['summary'],
             content: article['content'],
             createdAt: DateTime.parse(article['created_at']),
-            auteur: article['user_id'],
+            author: article['user']['email'],
             isPublished: article['isPublished']));
       }
     }
+    _articles = listArticles;
     return Future<List<Article>>.value(listArticles);
   }
 
   void selectedArticlesUrl(String url) {
     if (url == _selectedArticlesUrl) return;
     _selectedArticlesUrl = url;
+    notifyListeners();
+  }
+
+  void toggleSortOrder() {
+    isAscending = !isAscending;
+    _sorted = true;
     notifyListeners();
   }
 }

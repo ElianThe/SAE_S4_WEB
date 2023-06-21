@@ -3,8 +3,8 @@ class Article {
   String summary;
   String content;
   DateTime createdAt;
-  int auteur;
+  String author;
   bool isPublished;
 
-  Article({required this.title, required this.summary, required this.content, required this.createdAt, required this.auteur, required this.isPublished});
+  Article({required this.title, required this.summary, required this.content, required this.createdAt, required this.author, required this.isPublished});
 }

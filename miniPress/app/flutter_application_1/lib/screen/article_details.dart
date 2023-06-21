@@ -31,7 +31,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 10.0),
             Text(
               'Résumé : ${widget.article.summary}',
               style: const TextStyle(
@@ -39,15 +39,12 @@ class _ArticleDetailsState extends State<ArticleDetails> {
               ),
             ),
             const SizedBox(height: 16.0),
-            const Text(
-              'Contenu :',
-              style: TextStyle(
+            Text(
+              'Auteur : ${widget.article.author}',
+              style: const TextStyle(
                 fontSize: 18,
-                fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8.0),
-            MarkdownBody(data: widget.article.content),
             const SizedBox(height: 16.0),
             Text(
               'Publié : ${widget.article.isPublished ? 'Oui' : 'Non'}',
@@ -62,6 +59,18 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                 fontSize: 18,
               ),
             ),
+            const SizedBox(height: 16.0),
+            const Center(
+                child: Text(
+              'Contenu :',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+            const Divider(),
+            MarkdownBody(data: widget.article.content),
+            const Divider(),
           ],
         ),
       ),

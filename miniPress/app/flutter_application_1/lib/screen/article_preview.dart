@@ -15,7 +15,7 @@ class _ArticlePreviewState extends State<ArticlePreview> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.article.title),
-      subtitle: Text("user id :  ${widget.article.auteur}"),
+      subtitle: Text("Auteur :  ${widget.article.author}"),
       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
         Text(
             "${widget.article.createdAt.day.toString().padLeft(2, '0')}/${widget.article.createdAt.month.toString().padLeft(2, '0')}/${widget.article.createdAt.year} ${widget.article.createdAt.hour.toString()}:${widget.article.createdAt.minute.toString().padLeft(2, '0')}"),

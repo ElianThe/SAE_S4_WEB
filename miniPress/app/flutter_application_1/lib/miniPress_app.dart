@@ -14,61 +14,80 @@ class MiniPressApp extends StatefulWidget {
 class _MiniPressAppState extends State<MiniPressApp> {
   @override
   Widget build(BuildContext context) {
+    IconData currentIcon =
+        Provider.of<ArticleProvider>(context, listen: false).isAscending
+            ? Icons.keyboard_arrow_up
+            : Icons.keyboard_arrow_down;
     return MaterialApp(
         title: 'MiniPress-App',
-        home: ChangeNotifierProvider(
-            create: (context) => ArticleProvider(),
-            child: Scaffold(
-                appBar: AppBar(
-                  title: const Center(child: Text('Accueil')),
-                ),
-                body: const ArticleMaster(),
-                drawer: Drawer(
-                    child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 100.0,
-                      child: DrawerHeader(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                        ),
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Text(
-                                'MiniPress',
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.only(bottom: 10)),
-                              Text(
-                                'Catégories',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  decoration: TextDecoration.underline,
-                                  height: 1.5,
-                                ),
-                              ),
-                            ],
+        home: Scaffold(
+            appBar: AppBar(
+              title: const Center(child: Text('Accueil')),
+            ),
+            body: const ArticleMaster(),
+            drawer: Drawer(
+                child: Column(
+              children: [
+                const SizedBox(
+                  height: 100.0,
+                  child: DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'MiniPress',
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
+                          Padding(padding: EdgeInsets.only(bottom: 10)),
+                          Text(
+                            'Catégories',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              decoration: TextDecoration.underline,
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Expanded(
-                      child: CategoryMaster(),
-                    ),
-                  ],
-                )),
-                floatingActionButton: FloatingActionButton(
+                  ),
+                ),
+                Expanded(
+                  child: CategoryMaster(),
+                ),
+              ],
+            )),
+            floatingActionButton: Builder(
+              builder: (BuildContext context) {
+                return FloatingActionButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/article/add');
+                    setState(() {
+                      Provider.of<ArticleProvider>(context, listen: false)
+                          .toggleSortOrder();
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(Provider.of<ArticleProvider>(context,
+                                      listen: false)
+                                  .isAscending
+                              ? 'Articles triés par ordre croissant de date de création'
+                              : 'Articles triés par ordre décroissant de date de création'),
+                        ),
+                      );
+                    });
                   },
                   backgroundColor: Colors.blue,
-                  child: const Icon(Icons.filter_alt_outlined),
-                ))));
+                  child: Icon(currentIcon),
+                );
+              },
+            )));
   }
 }
