@@ -20,7 +20,7 @@ class ArticlesService
     public static function getArticleById($id) : array
     {
         try {
-            $articles = Article::where('id', $id)->where('isPublished', 1)->with('user')->firstOrFail();
+            $articles = Article::with('user')->where('id', $id)->where('isPublished', 1)->firstOrFail();
         } catch (ModelNotFoundException) {
             throw new ArticlesNotFoundException("l'article n'a pas été trouvé avec cette id");
         }

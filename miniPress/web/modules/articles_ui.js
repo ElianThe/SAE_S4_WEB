@@ -97,9 +97,8 @@ class ArticlesUI {
 
         const tableBody = document.createElement('tbody');
 
-        let article;
         sortedArticles.forEach(art => {
-            article = art.article;
+            let article = art.article;
             const tr = document.createElement('tr');
 
             const titleTd = document.createElement('td');

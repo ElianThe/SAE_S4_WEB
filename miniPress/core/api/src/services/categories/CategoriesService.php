@@ -22,7 +22,7 @@ class CategoriesService
         try {
             $categorie = Categorie::where('id', $id)
                 ->with(["articles" => function ($query) {
-                    $query->with('user'); // Charger la relation 'user' pour chaque article
+                    $query->where('isPublished', 1)->with('user'); // Add the 'isPublished' condition and load the 'user' relationship for each article
                 }])->first()->toArray();
         } catch (ModelNotFoundException $e) {
             throw new CategorieNotFoundException();
