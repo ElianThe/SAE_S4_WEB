@@ -39,9 +39,9 @@ class ArticlesService
     public static function getArticleSortDate ($sort) : array {
         try {
             if ($sort == "date-asc") {
-                $articles = Article::all()->with('user')->sortBy('published_at');
+                $articles = Article::with('user')->get()->sortBy('published_at');
             } else {
-                $articles = Article::all()->with('user')->sortByDesc('published_at');
+                $articles = Article::with('user')->get()->sortByDesc('published_at');
             }
         } catch (ModelNotFoundException) {
             throw new ArticlesNotFoundException('"le sort est surement mauvais');
@@ -51,7 +51,7 @@ class ArticlesService
 
     public static function getArticleSortAuteur () : array{
         try {
-            $articles = Article::all()->with('user')->sortBy('user_id');
+            $articles = Article::with('user')->get()->sortBy('user_id');
         } catch (ModelNotFoundException) {
             throw new ArticlesNotFoundException('"le sort est surement mauvais');
         }
