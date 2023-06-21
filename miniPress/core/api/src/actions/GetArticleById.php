@@ -25,10 +25,12 @@ class GetArticleById extends Action
             'type' => 'resource',
             'count' => count($article),
             'article' => [
+                'id' => $article['id'],
                 'title' => $article['title'],
                 'summary' => $article['summary'],
+                'content' => $article['content'],
                 'created_at' => $article['created_at'],
-                'isPublished' => $article['isPublished'],
+                'isPublished' => $article['isPublished'] == 1 ? true : false,
                 'user' => $article['user'],
                 'links' => [
                     'self' => [

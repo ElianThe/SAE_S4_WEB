@@ -40,7 +40,6 @@ function displayArticles(articles, filter=false) {
     articlesContainer.appendChild(searchContainer);
 
     // Tri des articles par ordre chronologique inverse
-    console.log(articles);
     const sortedArticles = articles.articles.sort((a, b) => {
         return new Date(b.article.created_at) - new Date(a.article.created_at);
     });
@@ -106,7 +105,6 @@ function displayArticles(articles, filter=false) {
         titleLink.textContent = article.title;
         titleLink.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log(article);
             articlesJS.loadArticleById(article.id);
         });
         titleTd.appendChild(titleLink);
@@ -119,10 +117,10 @@ function displayArticles(articles, filter=false) {
         const userIdTd = document.createElement('td');
         const authorLink = document.createElement('a');
         authorLink.href = '#';
-        authorLink.textContent = article.user_id;
+        authorLink.textContent = article.user.email;
         authorLink.addEventListener('click', (e) => {
             e.preventDefault();
-            articlesJS.loadByAuthor(article.user_id);
+            articlesJS.loadByAuthor(article.user.id);
         });
         userIdTd.appendChild(authorLink);
         tr.appendChild(userIdTd);

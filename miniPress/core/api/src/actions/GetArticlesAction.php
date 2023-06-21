@@ -37,6 +37,7 @@ class GetArticlesAction extends Action
             foreach ($articles as $article) {
                 $data['articles'][] = [
                     'article' => [
+                        'id' => $article['id'],
                         'title' => $article['title'],
                         'summary' => $article['summary'],
                         'content' => $article['content'],
