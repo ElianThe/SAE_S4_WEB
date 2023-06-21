@@ -1,6 +1,6 @@
 class Category {
-  int id;
-  String name;
+  final int id;
+  final String name;
   var links;
 
   Category({required this.id, required this.name, required this.links});

@@ -25,16 +25,7 @@ class _ArticleMasterState extends State<ArticleMaster> {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                    child: ArticlePreview(article: snapshot.data[index]),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ArticleDetails(
-                                  article: snapshot.data[index])));
-                    },
-                  );
+                  return ArticlePreview(article: snapshot.data[index]);
                 });
           } else {
             return const Center(child: CircularProgressIndicator());

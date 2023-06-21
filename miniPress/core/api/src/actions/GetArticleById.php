@@ -3,7 +3,7 @@
 namespace miniPress\api\actions;
 
 use miniPress\api\services\articles\ArticlesNotFoundException;
-use miniPress\api\services\articles\ArticlesService;
+use miniPress\api\services\articles\AuteursService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
@@ -16,7 +16,7 @@ class GetArticleById extends Action
         $id = $args['id'];
 
         try {
-            $article = ArticlesService::getArticleById($id);
+            $article = AuteursService::getArticleById($id);
         } catch (ArticlesNotFoundException) {
             throw new HttpNotFoundException($rq, 'Article avec id non trouvé');
         }
@@ -30,7 +30,6 @@ class GetArticleById extends Action
                 'summary' => $article['summary'],
                 'content' => $article['content'],
                 'created_at' => $article['created_at'],
-                'isPublished' => $article['isPublished'] == 1 ? true : false,
                 'user' => $article['user'],
                 'links' => [
                     'self' => [

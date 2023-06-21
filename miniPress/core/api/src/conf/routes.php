@@ -1,8 +1,9 @@
 <?php
 
+use miniPress\api\actions\GetAuteursAction;
 use miniPress\api\actions\GetArticleById;
 use miniPress\api\actions\GetArticlesAction;
-use miniPress\api\actions\GetArticlesByAuteur;
+use miniPress\api\actions\GetAuteurArticlesAction;
 use miniPress\api\actions\GetCategorieArticlesActions;
 use miniPress\api\actions\GetCategoriesAction;
 use Slim\Routing\RouteCollectorProxy;
@@ -21,6 +22,9 @@ return function (\Slim\App $app): void {
             $articles->get('/{id:[0-9]+}', GetArticleById::class)->setName('article');
         });
 
-        $api->get('/auteurs/{id}/articles[/]', GetArticlesByAuteur::class)->setName('auteurArticles');
+        $api->group('/auteurs', function (RouteCollectorProxy $auteurs) {
+            $auteurs->get('[/]', GetAuteursAction::class)->setName('auteurs');
+            $auteurs->get('/{id}/articles[/]', GetAuteurArticlesAction::class)->setName('auteurArticles');
+        });
     });
 };

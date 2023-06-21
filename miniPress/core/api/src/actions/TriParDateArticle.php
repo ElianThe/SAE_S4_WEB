@@ -3,7 +3,7 @@
 namespace miniPress\api\actions;
 
 use miniPress\api\services\articles\ArticlesNotFoundException;
-use miniPress\api\services\articles\ArticlesService;
+use miniPress\api\services\articles\AuteursService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
@@ -16,12 +16,12 @@ class TriParDateArticle extends Action
         $sort = $args['sort'];
         try {
             if ($sort == "auteur") {
-                $articles = ArticlesService::getArticleSortAuteur();
+                $articles = AuteursService::getArticleSortAuteur();
                 $data = [
                     'articles' => $articles
                 ];
             } else if ($sort == "date-asc" || $sort == "date-desc") {
-                $articles = ArticlesService::getArticleSortDate($sort);
+                $articles = AuteursService::getArticleSortDate($sort);
                 $data = [
                     'articles' => $articles
                 ];

@@ -27,10 +27,6 @@ class ArticleProvider extends ChangeNotifier {
       var jsonData = json.decode(response.body);
       var articles = jsonData['articles'];
 
-      articles.add(articles[0]);
-      articles[articles.length - 1]['article']['title'] = 'Article Test';
-      articles[articles.length - 1]['article']['created_at'] =
-          '2023-11-04 04:01:00';
       // trier les articles par date de création décroissante
       articles.sort((a, b) => DateTime.parse(b['article']['created_at'])
           .compareTo(DateTime.parse(a['article']['created_at'])));
@@ -42,8 +38,8 @@ class ArticleProvider extends ChangeNotifier {
             summary: article['summary'],
             content: article['content'],
             createdAt: DateTime.parse(article['created_at']),
-            author: article['user']['email'],
-            isPublished: article['isPublished']));
+            author: article['user']['name'],
+        ));
       }
     }
     _articles = listArticles;
@@ -56,9 +52,11 @@ class ArticleProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleSortOrder() {
+  void toggleSortOrder(cb) {
+    if (_articles.isEmpty) return;
     isAscending = !isAscending;
     _sorted = true;
     notifyListeners();
+    cb();
   }
 }

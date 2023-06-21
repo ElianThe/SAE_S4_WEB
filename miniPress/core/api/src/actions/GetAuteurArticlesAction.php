@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
 use Slim\Routing\RouteContext;
 
-class GetArticlesByAuteur extends Action
+class GetAuteurArticlesAction extends Action
 {
 
     public function __invoke(Request $rq, Response $rs, array $args): Response
@@ -35,7 +35,6 @@ class GetArticlesByAuteur extends Action
                     'summary' => $article['summary'],
                     'content' => $article['content'],
                     'created_at' => $article['created_at'],
-                    'isPublished' => $article['isPublished'] == 1 ? true : false,
                     'user' => $article['user'],
                 ],
                 'links' => [

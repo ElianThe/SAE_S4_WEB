@@ -29,7 +29,7 @@ class _MiniPressAppState extends State<MiniPressApp> {
                 child: Column(
               children: [
                 const SizedBox(
-                  height: 100.0,
+                  height: 70.0,
                   child: DrawerHeader(
                     decoration: BoxDecoration(
                       color: Colors.blue,
@@ -43,16 +43,6 @@ class _MiniPressAppState extends State<MiniPressApp> {
                               fontSize: 24,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.only(bottom: 10)),
-                          Text(
-                            'Catégories',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              decoration: TextDecoration.underline,
-                              height: 1.5,
                             ),
                           ),
                         ],
@@ -71,17 +61,20 @@ class _MiniPressAppState extends State<MiniPressApp> {
                   onPressed: () {
                     setState(() {
                       Provider.of<ArticleProvider>(context, listen: false)
-                          .toggleSortOrder();
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(Provider.of<ArticleProvider>(context,
-                                      listen: false)
-                                  .isAscending
-                              ? 'Articles triés par ordre croissant de date de création'
-                              : 'Articles triés par ordre décroissant de date de création'),
-                        ),
-                      );
+                          .toggleSortOrder(() => {
+                                ScaffoldMessenger.of(context)
+                                    .hideCurrentSnackBar(),
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: Text(Provider.of<ArticleProvider>(
+                                              context,
+                                              listen: false)
+                                          .isAscending
+                                      ? 'Articles triés par ordre croissant de date de création'
+                                      : 'Articles triés par ordre décroissant de date de création'),
+                                  duration: const Duration(seconds: 2),
+                                ))
+                              });
                     });
                   },
                   backgroundColor: Colors.blue,

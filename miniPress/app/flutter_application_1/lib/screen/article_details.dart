@@ -39,27 +39,28 @@ class _ArticleDetailsState extends State<ArticleDetails> {
               ),
             ),
             const SizedBox(height: 16.0),
-            Text(
-              'Auteur : ${widget.article.author}',
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-            ),
+            Row(children: [
+              Icon(Icons.person, size: 18.0, color: Colors.grey[600]),
+              const SizedBox(width: 6.0),
+              Text(
+                'Auteur : ${widget.article.author}',
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
+              )
+            ]),
             const SizedBox(height: 16.0),
-            Text(
-              'Publié : ${widget.article.isPublished ? 'Oui' : 'Non'}',
-              style: const TextStyle(
-                fontSize: 18,
+            Row(children: [
+              Icon(Icons.calendar_today, size: 18.0, color: Colors.grey[600]),
+              const SizedBox(width: 6.0),
+              Text(
+                'Date de création : ${widget.article.createdAt.day.toString().padLeft(2, '0')}/${widget.article.createdAt.month.toString().padLeft(2, '0')}/${widget.article.createdAt.year} ${widget.article.createdAt.hour.toString()}:${widget.article.createdAt.minute.toString().padLeft(2, '0')}',
+                style: const TextStyle(
+                  fontSize: 18,
+                ),
               ),
-            ),
-            const SizedBox(height: 16.0),
-            Text(
-              'Date de création : ${widget.article.createdAt.day.toString().padLeft(2, '0')}/${widget.article.createdAt.month.toString().padLeft(2, '0')}/${widget.article.createdAt.year} ${widget.article.createdAt.hour.toString()}:${widget.article.createdAt.minute.toString().padLeft(2, '0')}',
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-            ),
-            const SizedBox(height: 16.0),
+            ]),
+            const SizedBox(height: 20.0),
             const Center(
                 child: Text(
               'Contenu :',

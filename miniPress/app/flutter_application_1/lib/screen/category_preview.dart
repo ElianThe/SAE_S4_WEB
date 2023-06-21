@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../models/category.dart';
+import '../providers/article_provider.dart';
 
 class CategoryPreview extends StatefulWidget {
   final Category category;
@@ -16,6 +18,12 @@ class _CategoryPreviewState extends State<CategoryPreview> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.category.name, style: const TextStyle(fontSize: 16)),
+      onTap: () {
+        setState(() {
+          Provider.of<ArticleProvider>(context, listen: false)
+              .selectedArticlesUrl(widget.category.links['articles']['href']);
+        });
+      },
     );
   }
 }
