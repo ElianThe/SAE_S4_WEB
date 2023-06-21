@@ -31,11 +31,11 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 10.0),
+            const SizedBox(height: 4.0),
             Text(
-              'Résumé : ${widget.article.summary}',
+              widget.article.summary,
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 16,
               ),
             ),
             const SizedBox(height: 16.0),

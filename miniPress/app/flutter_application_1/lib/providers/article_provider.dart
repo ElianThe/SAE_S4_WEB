@@ -7,17 +7,39 @@ import '../models/article.dart';
 
 class ArticleProvider extends ChangeNotifier {
   String _selectedArticlesUrl = '/api/articles';
+  bool _isFiltered = false;
+  String _filterKeyword = '';
+
   bool isAscending = false;
   bool _sorted = false;
-  List<Article> _articles = [];
+  List<Article> _originalArticleList = [];
+  List<Article> _workingArticleList = [];
 
   Future<List<Article>> getArticleList() async {
     if (_sorted) {
       _sorted = false;
-      _articles.sort((a, b) => isAscending
-        ? a.createdAt.compareTo(b.createdAt)
-        : b.createdAt.compareTo(a.createdAt));
-      return Future<List<Article>>.value(_articles);
+      _workingArticleList.sort((a, b) => isAscending
+          ? a.createdAt.compareTo(b.createdAt)
+          : b.createdAt.compareTo(a.createdAt));
+      return Future<List<Article>>.value(_workingArticleList);
+    }
+
+    if (_isFiltered) {
+      _isFiltered = false;
+      if (_filterKeyword.isNotEmpty) {
+        _workingArticleList = _originalArticleList
+            .where((article) =>
+                article.title
+                    .toLowerCase()
+                    .contains(_filterKeyword.toLowerCase()) ||
+                article.summary
+                    .toLowerCase()
+                    .contains(_filterKeyword.toLowerCase()))
+            .toList();
+      } else {
+        _workingArticleList = _originalArticleList;
+      }
+      return Future<List<Article>>.value(_workingArticleList);
     }
 
     List<Article> listArticles = [];
@@ -34,15 +56,16 @@ class ArticleProvider extends ChangeNotifier {
       for (var articleObject in articles) {
         var article = articleObject['article'];
         listArticles.add(Article(
-            title: article['title'],
-            summary: article['summary'],
-            content: article['content'],
-            createdAt: DateTime.parse(article['created_at']),
-            author: article['user']['name'],
+          title: article['title'],
+          summary: article['summary'],
+          content: article['content'],
+          createdAt: DateTime.parse(article['created_at']),
+          author: article['user']['name'],
         ));
       }
     }
-    _articles = listArticles;
+    _originalArticleList = listArticles;
+    _workingArticleList = listArticles;
     return Future<List<Article>>.value(listArticles);
   }
 
@@ -53,10 +76,16 @@ class ArticleProvider extends ChangeNotifier {
   }
 
   void toggleSortOrder(cb) {
-    if (_articles.isEmpty) return;
+    if (_originalArticleList.isEmpty) return;
     isAscending = !isAscending;
     _sorted = true;
     notifyListeners();
     cb();
+  }
+
+  void setFilterKeyword(String keyword) {
+    _filterKeyword = keyword.trim();
+    _isFiltered = true;
+    notifyListeners();
   }
 }

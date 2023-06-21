@@ -4,6 +4,8 @@ import 'package:flutter_application_1/screen/article_master.dart';
 import 'package:flutter_application_1/screen/category_master.dart';
 import 'package:provider/provider.dart';
 
+import 'screen/filter_text_field.dart';
+
 class MiniPressApp extends StatefulWidget {
   const MiniPressApp({super.key});
 
@@ -22,8 +24,8 @@ class _MiniPressAppState extends State<MiniPressApp> {
         title: 'MiniPress-App',
         home: Scaffold(
             appBar: AppBar(
-              title: const Center(child: Text('Accueil')),
-            ),
+                title: const Center(child: Text('Accueil')),
+                actions: const [FilterTextField()]),
             body: const ArticleMaster(),
             drawer: Drawer(
                 child: Column(
