@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../models/Article.dart';
+import '../models/article.dart';
 
 class ArticleProvider extends ChangeNotifier {
   String _selectedArticlesUrl = '/api/articles';
@@ -24,8 +24,11 @@ class ArticleProvider extends ChangeNotifier {
         var article = articleObject['article'];
         listArticles.add(Article(
             title: article['title'],
-            dateCrea: DateTime.parse(article['created_at']),
-            auteur: article['user_id']));
+            summary: article['summary'],
+            content: article['content'],
+            createdAt: DateTime.parse(article['created_at']),
+            auteur: article['user_id'],
+            isPublished: article['isPublished']));
       }
     }
     return Future<List<Article>>.value(listArticles);

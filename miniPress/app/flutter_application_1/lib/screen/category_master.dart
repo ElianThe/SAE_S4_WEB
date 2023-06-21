@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-import '../models/Category.dart';
+import '../models/category.dart';
 import '../providers/article_provider.dart';
 import 'category_preview.dart';
 
 class CategoryMaster extends StatefulWidget {
-  const CategoryMaster({super.key});
+  CategoryMaster({super.key});
+
+  Future<List<Category>>? categoryList;
 
   @override
   State<CategoryMaster> createState() => _CategoryMasterState();
@@ -17,7 +19,7 @@ class CategoryMaster extends StatefulWidget {
 
 class _CategoryMasterState extends State<CategoryMaster> {
   var client = http.Client();
-  String baseUrl = "http://localhost:5380/api/";
+  String baseUrl = "http://localhost:5380";
 
   Future<List<Category>> getCategoryList(String api) async {
     List<Category> listCategories = [];
@@ -25,20 +27,23 @@ class _CategoryMasterState extends State<CategoryMaster> {
     var response = await client.get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
-      var categories = jsonData[api];
+      var categories = jsonData['categories'];
       for (var categoryObject in categories) {
         var category = categoryObject['category'];
-        listCategories
-            .add(Category(id: category['id'], name: category['name'], links: categoryObject['links']));
+        listCategories.add(Category(
+            id: category['id'],
+            name: category['name'],
+            links: categoryObject['links']));
       }
     }
+    widget.categoryList = Future<List<Category>>.value(listCategories);
     return Future<List<Category>>.value(listCategories);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getCategoryList('categories'),
+        future: widget.categoryList ?? getCategoryList('/api/categories'),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -49,7 +54,8 @@ class _CategoryMasterState extends State<CategoryMaster> {
                     onTap: () {
                       setState(() {
                         Provider.of<ArticleProvider>(context, listen: false)
-                            .selectedArticlesUrl(snapshot.data[index].links['articles']['href']);
+                            .selectedArticlesUrl(
+                                snapshot.data[index].links['articles']['href']);
                       });
                     },
                   );

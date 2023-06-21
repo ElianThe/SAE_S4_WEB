@@ -20,7 +20,8 @@ class _ArticleMasterState extends State<ArticleMaster> {
       return FutureBuilder(
         future: articleProvider.getArticleList(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData && snapshot.connectionState != ConnectionState.waiting) {
+          if (snapshot.hasData &&
+              snapshot.connectionState != ConnectionState.waiting) {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
@@ -30,7 +31,8 @@ class _ArticleMasterState extends State<ArticleMaster> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ArticleDetails()));
+                              builder: (context) => ArticleDetails(
+                                  article: snapshot.data[index])));
                     },
                   );
                 });

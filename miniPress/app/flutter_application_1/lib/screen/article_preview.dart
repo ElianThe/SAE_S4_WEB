@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/models/Article.dart';
+import 'package:flutter_application_1/models/article.dart';
 
 class ArticlePreview extends StatefulWidget {
   final Article article;
@@ -16,8 +16,14 @@ class _ArticlePreviewState extends State<ArticlePreview> {
     return ListTile(
       title: Text(widget.article.title),
       subtitle: Text("user id :  ${widget.article.auteur}"),
-      trailing: Text(
-          "${widget.article.dateCrea.day}/${widget.article.dateCrea.month}/${widget.article.dateCrea.year} ${widget.article.dateCrea.hour}:${widget.article.dateCrea.minute}"),
+      trailing: Row(mainAxisSize: MainAxisSize.min, children: [
+        Text(
+            "${widget.article.createdAt.day.toString().padLeft(2, '0')}/${widget.article.createdAt.month.toString().padLeft(2, '0')}/${widget.article.createdAt.year} ${widget.article.createdAt.hour.toString()}:${widget.article.createdAt.minute.toString().padLeft(2, '0')}"),
+        const SizedBox(width: 10),
+        widget.article.isPublished
+            ? const Icon(Icons.check_box)
+            : const Icon(Icons.check_box_outline_blank)
+      ]),
     );
   }
 }
