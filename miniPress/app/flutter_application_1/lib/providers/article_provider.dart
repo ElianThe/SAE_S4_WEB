@@ -24,8 +24,11 @@ class ArticleProvider extends ChangeNotifier {
         var article = articleObject['article'];
         listArticles.add(Article(
             title: article['title'],
-            dateCrea: DateTime.parse(article['created_at']),
-            auteur: article['user_id']));
+            summary: article['summary'],
+            content: article['content'],
+            createdAt: DateTime.parse(article['created_at']),
+            auteur: article['user_id'],
+            isPublished: article['isPublished']));
       }
     }
     return Future<List<Article>>.value(listArticles);

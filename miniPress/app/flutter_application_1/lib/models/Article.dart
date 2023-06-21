@@ -1,7 +1,10 @@
 class Article {
   String title;
-  DateTime dateCrea;
+  String summary;
+  String content;
+  DateTime createdAt;
   int auteur;
+  bool isPublished;
 
-  Article({required this.title, required this.dateCrea, required this.auteur});
+  Article({required this.title, required this.summary, required this.content, required this.createdAt, required this.auteur, required this.isPublished});
 }

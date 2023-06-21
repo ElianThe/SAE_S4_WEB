@@ -39,8 +39,9 @@ class GetArticlesAction extends Action
                     'article' => [
                         'title' => $article['title'],
                         'summary' => $article['summary'],
+                        'content' => $article['content'],
                         'created_at' => $article['created_at'],
-                        'isPublished' => $article['isPublished'],
+                        'isPublished' => $article['isPublished'] == 1 ? true : false,
                         'user_id' => $article['user_id'],
                     ],
                     'links' => [

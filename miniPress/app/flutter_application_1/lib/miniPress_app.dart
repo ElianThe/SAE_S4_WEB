@@ -23,10 +23,10 @@ class _MiniPressAppState extends State<MiniPressApp> {
                   title: const Center(child: Text('Accueil')),
                 ),
                 body: const ArticleMaster(),
-                drawer: const Drawer(
+                drawer: Drawer(
                     child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100.0,
                       child: DrawerHeader(
                         decoration: BoxDecoration(
