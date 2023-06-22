@@ -2,7 +2,7 @@
 
 # MiniPress
 
-- Groupe : MASSON Paul, SEILER Mathis, GUIFFAULT Elian, VAVASSEUR Régis 
+- Groupe : MASSON Paul, SEILER Mathis, GUIFFAULT Elian, VAVASSEUR Régis, CARLIER Maxime
 
 ## URL du dépot git : https://github.com/ElianThe/SAE_S4_WEB
 
