@@ -2,8 +2,9 @@
 
 namespace miniPress\admin\actions;
 
-use miniPress\admin\services\user\UserNotFoundException;
 use miniPress\admin\services\user\UserService;
+use miniPress\admin\services\utils\CsrfException;
+use miniPress\admin\services\utils\CsrfService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
@@ -15,6 +16,15 @@ class PostConnexionUserAction extends Action
     public function __invoke(Request $rq, Response $rs, array $args): Response
     {
         $params = $rq->getParsedBody();
+
+        //Verification du token transmis par le formulaire
+        $token = $params['csrf_token'] ?? null;
+
+        try{
+            CsrfService::check($token);
+        }catch (CsrfException){
+            throw new CsrfException("CSRF token is invalid");
+        }
 
         $userService = new UserService();
 
