@@ -11,6 +11,17 @@ class ArticlesUI {
             document.getElementById('main').appendChild(this.searchInput);
         }
 
+        this.searchInput.addEventListener('input', (event) => {
+            const keyword = event.target.value;
+            const filteredArticles = this.originalArticles.articles.filter(article => {
+                return article.article.title.includes(keyword) || article.article.summary.includes(keyword);
+            });
+            // Remove current articles before displaying the new ones
+            const currentArticlesContainer = document.getElementById('articles-container');
+            if (currentArticlesContainer) currentArticlesContainer.remove();
+            this.displayArticles({articles: filteredArticles}, true);
+        });
+
         this.originalArticles = [];
     }
 
@@ -18,6 +29,7 @@ class ArticlesUI {
         if(!filter) {
             this.originalArticles = articles; // Save a copy of the articles
         }
+
         const articlesContainer = document.createElement('div');
         articlesContainer.id = 'articles-container';
         document.getElementById('main').appendChild(articlesContainer);
@@ -28,17 +40,6 @@ class ArticlesUI {
         const searchLabel = document.createElement('label');
         searchLabel.textContent = "Rechercher dans le titre ou le résumé: ";
         searchContainer.appendChild(searchLabel);
-
-        this.searchInput.addEventListener('input', (event) => {
-            const keyword = event.target.value;
-            const filteredArticles = this.originalArticles.articles.filter(article => { // Use the original articles for filtering
-                return article.article.title.includes(keyword) || article.article.summary.includes(keyword);
-            });
-            // Remove current articles before displaying the new ones
-            const currentArticlesContainer = document.getElementById('articles-container');
-            if (currentArticlesContainer) currentArticlesContainer.remove();
-            this.displayArticles({articles: filteredArticles}, true);
-        });
 
         articlesContainer.appendChild(searchContainer);
 
@@ -62,6 +63,7 @@ class ArticlesUI {
             { value: '?sort=date-desc', text: 'Date de publication décroissante' },
             { value: '?sort=auteur', text: 'Auteur' },
         ];
+
         sortOptions.forEach(optionData => {
             const option = document.createElement('option');
             option.value = optionData.value;
@@ -119,7 +121,7 @@ class ArticlesUI {
             const userIdTd = document.createElement('td');
             const authorLink = document.createElement('a');
             authorLink.href = '#';
-            authorLink.textContent = article.user.name;
+            authorLink.textContent = article.user.email;
             authorLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 articlesJS.loadByAuthor(article.user.id);

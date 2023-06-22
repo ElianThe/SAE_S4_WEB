@@ -5,6 +5,7 @@
 {% block minipress %}
 
 <form method="post" action="{{ url_for('signinPost') }}">
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ token }}">
     <h2>Se connecter</h2>
 
     {% if error is defined %}

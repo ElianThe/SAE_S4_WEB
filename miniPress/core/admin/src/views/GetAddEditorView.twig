@@ -5,6 +5,7 @@
 {% block minipress %}
 
 <form method="post" action="{{ url_for('addEditorPost') }}">
+    <input type="hidden" name="csrf_token" id="csrf_token" value="{{ token }}">
     <h2>Ajouter un utilisateur</h2>
 
     {% if error is defined %}
