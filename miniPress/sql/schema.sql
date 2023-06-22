@@ -22,7 +22,7 @@ CREATE TABLE `Articles` (
                             PRIMARY KEY (`id`),
                             KEY `Category_ID` (`cat_id`),
                             KEY `User_ID` (`user_id`),
-                            CONSTRAINT `Articles_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `Categories` (`ID`),
+                            CONSTRAINT `Articles_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `Categories` (`id`),
                             CONSTRAINT `Articles_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -33,6 +33,7 @@ CREATE TABLE `Categories` (
                               `name` varchar(255) NOT NULL,
                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
@@ -45,4 +46,4 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- 2023-06-14 14:22:27
+-- 2023-06-22 13:35:53
