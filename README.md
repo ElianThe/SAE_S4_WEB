@@ -8,7 +8,7 @@
 
 ## URL de l'application d'administration sur dock-etu : http://docketu.iutnc.univ-lorraine.fr:22102/
 
-## URL de l'api sur dock-etu : http://docketu.iutnc.univ-lorraine.fr:22103/api/articles
+## URL de l'api sur dock-etu : http://docketu.iutnc.univ-lorraine.fr:22103/api/
 
 ## Identifiant et mot de passe des utilisateurs créés :
 
