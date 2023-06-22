@@ -11,8 +11,8 @@ class FilterTextField extends StatelessWidget {
     return Flexible(
         child: Container(
             width: 200,
-            margin: const EdgeInsets.symmetric(horizontal: 16),
-            padding: const EdgeInsets.only(left: 35.0),
+            margin: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.only(left: 40.0),
             child: TextField(
               onChanged: (value) {
                 Provider.of<ArticleProvider>(context, listen: false)

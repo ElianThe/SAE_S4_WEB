@@ -32,12 +32,7 @@ class _ArticleDetailsState extends State<ArticleDetails> {
               ),
             ),
             const SizedBox(height: 4.0),
-            Text(
-              widget.article.summary,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
+            MarkdownBody(data: widget.article.summary),
             const SizedBox(height: 16.0),
             Row(children: [
               Icon(Icons.person, size: 18.0, color: Colors.grey[600]),

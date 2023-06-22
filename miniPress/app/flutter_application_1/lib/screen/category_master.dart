@@ -11,6 +11,7 @@ import 'category_preview.dart';
 class CategoryMaster extends StatefulWidget {
   CategoryMaster({super.key}) {
     getCategoryList();
+    getAuthorList();
   }
 
   Future<List<Category>>? categoryList;
