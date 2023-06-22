@@ -167,6 +167,29 @@ footer {
     background-color: #45b0b7;
 }
 
+.admin {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff4081;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.admin:hover {
+    background-color: #ff80ab;
+}
+
+.admin a {
+    color: #fff;
+    text-decoration: none;
+}
+
+
 
 
 
