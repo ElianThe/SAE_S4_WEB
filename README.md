@@ -6,9 +6,9 @@
 
 ## URL du dépot git : https://github.com/ElianThe/SAE_S4_WEB
 
-## URL de l'application d'administration sur dock-etu :
+## URL de l'application d'administration sur dock-etu : http://docketu.iutnc.univ-lorraine.fr:22102/
 
-## URL de l'api sur dock-etu :
+## URL de l'api sur dock-etu : http://docketu.iutnc.univ-lorraine.fr:22103/api/articles
 
 ## Identifiant et mot de passe des utilisateurs créés :
 
@@ -37,6 +37,6 @@ Suivez ces étapes pour installer MiniPress :
 - [x] article complet
 - [x] Liste des articles d’un auteur
 ### Fonctionnalités étendues :
-- [x] 
-- [x] 
+- [x] Publication/dépublication des articles
+- [x] Création d’utilisateurs
 
