@@ -119,7 +119,7 @@ class ArticlesUI {
             const userIdTd = document.createElement('td');
             const authorLink = document.createElement('a');
             authorLink.href = '#';
-            authorLink.textContent = article.user.email;
+            authorLink.textContent = article.user.name;
             authorLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 articlesJS.loadByAuthor(article.user.id);
