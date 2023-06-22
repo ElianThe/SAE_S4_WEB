@@ -12,8 +12,8 @@
 
 ## Identifiant et mot de passe des utilisateurs créés :
 
-- id: , password: 
-- id: , password: 
+- **email:** admin@email.com ; **password:** *Adminpass1
+- **email:** editeur@email.com ; **password:** *Editeurpass1
 
 ## Installation
 
