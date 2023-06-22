@@ -2,7 +2,7 @@
 
 namespace miniPress\admin\actions;
 
-use miniPress\admin\actions\Action;
+use miniPress\admin\services\utils\CsrfService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Routing\RouteContext;
@@ -20,6 +20,8 @@ class GetConnexionUserAction extends Action
         }
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'GetConnexionUserView.twig');
+        return $view->render($rs, 'GetConnexionUserView.twig', [
+            'token' => CsrfService::generate()
+        ]);
     }
 }

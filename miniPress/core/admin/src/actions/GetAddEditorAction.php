@@ -4,6 +4,7 @@ namespace miniPress\admin\actions;
 
 use miniPress\admin\actions\Action;
 use miniPress\admin\services\user\UserService;
+use miniPress\admin\services\utils\CsrfService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpUnauthorizedException;
@@ -22,6 +23,8 @@ class GetAddEditorAction extends Action
         }
 
         $view = Twig::fromRequest($rq);
-        return $view->render($rs, 'GetAddEditorView.twig');
+        return $view->render($rs, 'GetAddEditorView.twig', [
+            'token' => CsrfService::generate()
+        ]);
     }
 }
