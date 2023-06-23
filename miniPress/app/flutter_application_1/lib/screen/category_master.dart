@@ -18,7 +18,7 @@ class CategoryMaster extends StatefulWidget {
 
   Future<List<Category>> getCategoryList() async {
     List<Category> listCategories = [];
-    var url = Uri.parse("http://localhost:5380/api/categories");
+    var url = Uri.parse("http://docketu.iutnc.univ-lorraine.fr:22103/api/categories");
     var response = await http.Client().get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
@@ -39,7 +39,7 @@ class CategoryMaster extends StatefulWidget {
 
   Future<List<Author>> getAuthorList() async {
     List<Author> listAuthors = [];
-    var url = Uri.parse("http://localhost:5380/api/auteurs");
+    var url = Uri.parse("http://docketu.iutnc.univ-lorraine.fr:22103/api/auteurs");
     var response = await http.Client().get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);

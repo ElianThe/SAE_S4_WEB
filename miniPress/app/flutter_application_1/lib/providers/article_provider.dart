@@ -43,7 +43,7 @@ class ArticleProvider extends ChangeNotifier {
     }
 
     List<Article> listArticles = [];
-    var url = Uri.parse('http://localhost:5380$_selectedArticlesUrl');
+    var url = Uri.parse('http://docketu.iutnc.univ-lorraine.fr:22103$_selectedArticlesUrl');
     var response = await http.Client().get(url);
     if (response.statusCode == 200) {
       var jsonData = json.decode(response.body);
